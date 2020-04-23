@@ -1,7 +1,9 @@
 # DELIVER POC
+
 Deliver Web Tool - Proof of Concept (POC)
 
 ## Mission Statement
+
 The idea is simple... the implementation will be very hard (for me), but as everything with code, I'm sure it is possible.
 
 Basically, what I want to accomplish with this POC is simple. Prove that the basic methods in building a webpage can be abstracted away from the underlying web APIs that exist, and opened up to a whole group of non-technical users. AKA the DOM APIs and the CSS code that styles web elements.
@@ -17,7 +19,7 @@ All of these things are simple interactions that can be expressed a number of wa
 
 ## Proof of Concept
 
-This project is not meant to be the final tool to end all web development. This project is meant to provide a space to determine if these simple concepts can be abstracted away from their underlying implementations. 
+This project is not meant to be the final tool to end all web development. This project is meant to provide a space to determine if these simple concepts can be abstracted away from their underlying implementations.
 
 ### Thesis
 
