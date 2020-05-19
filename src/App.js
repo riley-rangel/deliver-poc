@@ -65,6 +65,44 @@ function App() {
     };
   }, []);
 
+  /**
+   * Persists user content for the duration of the session.
+   */
+  React.useEffect(() => {
+    const { current: canvas } = canvasRef;
+    const sessionKey = 'canvas-session-content';
+    const content = window.sessionStorage.getItem(sessionKey);
+
+    if (content) {
+      // re-hydrate canvas
+      canvas.innerHTML = content;
+
+      // Sync active element state with re-hydrated canvas
+      const savedActiveEl = canvas.querySelector('[data-active]');
+      if (savedActiveEl) {
+        setActiveEl(savedActiveEl);
+      }
+    }
+
+    const observer = new MutationObserver(() => {
+      window.sessionStorage.setItem(sessionKey, canvas.innerHTML);
+    });
+
+    observer.observe(canvas, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  /**
+   * Add element implementation.
+   * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
+   */
   const addElementToActive = React.useCallback(() => {
     if (activeEl) {
       const el = document.createElement('div');
@@ -73,6 +111,10 @@ function App() {
     }
   }, [activeEl]);
 
+  /**
+   * Remove element implementation. This one will need re-organization beyond POC to accomplish the below.
+   * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
+   */
   const removeActiveElement = React.useCallback(() => {
     const { nextSibling, previousSibling, parentElement } = activeEl;
     setActiveEl(nextSibling || previousSibling || parentElement || undefined);
