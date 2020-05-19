@@ -43,6 +43,17 @@ const Canvas = React.forwardRef(
         ref={ref}
         sx={{
           height: '100vh',
+          '&:empty': {
+            ':before': {
+              position: 'absolute',
+              content: activeEl
+                ? '"Now, add a new element!"'
+                : '"Click me to get started!"',
+              top: '50%',
+              width: '100%',
+              textAlign: 'center',
+            },
+          },
           '&[data-selectable]:not([data-active])': {
             outline: '2px solid blueviolet',
             outlineOffset: '-2px',

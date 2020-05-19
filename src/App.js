@@ -86,13 +86,7 @@ function App() {
         canvasId="canvas-one"
         activeEl={activeEl}
         selectableEl={selectableEl}
-      >
-        <Box width="100%">
-          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
-          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
-          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
-        </Box>
-      </Canvas>
+      />
 
       {Boolean(activeEl) && (
         <ControlBar>
