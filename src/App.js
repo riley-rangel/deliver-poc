@@ -78,6 +78,7 @@ function App() {
       canvas.innerHTML = content;
 
       // Sync active element state with re-hydrated canvas
+      // Not a fan of having this up here - need to re-evaluate
       const savedActiveEl = canvas.querySelector('[data-active]');
       if (savedActiveEl) {
         setActiveEl(savedActiveEl);
