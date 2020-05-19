@@ -54,19 +54,11 @@ const Canvas = React.forwardRef(
               textAlign: 'center',
             },
           },
-          '&[data-selectable]:not([data-active])': {
+          '&[data-selectable]:not([data-active]),*[data-selectable]:not([data-active])': {
             outline: '2px solid blueviolet',
             outlineOffset: '-2px',
           },
-          '*[data-selectable]:not([data-active])': {
-            outline: '2px solid blueviolet',
-            outlineOffset: '-2px',
-          },
-          '&[data-active]': {
-            outline: '2px solid lawngreen',
-            outlineOffset: '-2px',
-          },
-          '*[data-active]': {
+          '&[data-active],*[data-active]': {
             outline: '2px solid lawngreen',
             outlineOffset: '-2px',
           },
