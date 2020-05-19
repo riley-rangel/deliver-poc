@@ -4,6 +4,7 @@ import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
 
 import './App.css';
+import { Text } from 'rebass';
 
 function App() {
   const canvasRef = React.useRef();
@@ -118,12 +119,18 @@ function App() {
    */
   const removeActiveElement = React.useCallback(() => {
     const { nextSibling, previousSibling, parentElement } = activeEl;
-    setActiveEl(nextSibling || previousSibling || parentElement || undefined);
+    const findFirstElement = (...args) =>
+      args.find((i) => i instanceof Element);
+    setActiveEl(findFirstElement(nextSibling, previousSibling, parentElement));
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
 
   return (
     <>
+      <Text sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+        {process.env.REACT_APP_VERSION}
+      </Text>
+
       <Canvas
         ref={canvasRef}
         canvasId="canvas-one"
