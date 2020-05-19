@@ -1,13 +1,70 @@
 import React from 'react';
 
-import { Box, Button } from 'rebass';
+import { Box } from 'rebass';
 import { Canvas } from './components/Canvas';
-import { ControlBar } from './components/ControlBar';
+import { Control, ControlBar } from './components/ControlBar';
 
 import './App.css';
 
 function App() {
+  const canvasRef = React.useRef();
   const [activeEl, setActiveEl] = React.useState();
+  const [selectableEl, setSelectableEl] = React.useState();
+
+  /**
+   * Update active element on click.
+   */
+  React.useEffect(() => {
+    const { current: canvas } = canvasRef;
+
+    const updateActiveEl = () => {
+      setActiveEl(selectableEl);
+    };
+
+    canvas.addEventListener('click', updateActiveEl);
+
+    return () => {
+      canvas.removeEventListener('click', updateActiveEl);
+    };
+  }, [selectableEl]);
+
+  /**
+   * Updates the state of the current selectable element.
+   */
+  React.useEffect(() => {
+    const { current: canvas } = canvasRef;
+
+    const updateSelectableEl = ({ pageX, pageY }) => {
+      let closestElToMouse = document.elementFromPoint(pageX, pageY);
+
+      if (selectableEl !== closestElToMouse) {
+        setSelectableEl(closestElToMouse);
+      }
+    };
+
+    canvas.addEventListener('mousemove', updateSelectableEl);
+
+    return () => {
+      canvas.removeEventListener('mousemove', updateSelectableEl);
+    };
+  }, [selectableEl]);
+
+  /**
+   * Removes the selectable element when user leaves the canvas.
+   */
+  React.useEffect(() => {
+    const { current: canvas } = canvasRef;
+
+    const removeSelectableEl = () => {
+      setSelectableEl(undefined);
+    };
+
+    canvas.addEventListener('mouseleave', removeSelectableEl);
+
+    return () => {
+      canvas.removeEventListener('mouseleave', removeSelectableEl);
+    };
+  }, []);
 
   const addElementToActive = React.useCallback(() => {
     if (activeEl) {
@@ -25,63 +82,28 @@ function App() {
   return (
     <>
       <Canvas
+        ref={canvasRef}
         canvasId="canvas-one"
-        activeElement={activeEl}
-        onSelectElement={setActiveEl}
+        activeEl={activeEl}
+        selectableEl={selectableEl}
       >
-        <Box width="100%" sx={{ border: '1px solid black' }}>
-          <Box height="50px" width="50px" sx={{ border: '1px solid black' }}>
-            Box
-          </Box>
-          <Box height="50px" width="50px" sx={{ border: '1px solid black' }}>
-            Box
-          </Box>
-          <Box height="50px" width="50px" sx={{ border: '1px solid black' }}>
-            Box
-          </Box>
+        <Box width="100%">
+          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
+          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
+          <Box sx={{ border: '1px solid black' }}>Click Me</Box>
         </Box>
       </Canvas>
 
       {Boolean(activeEl) && (
         <ControlBar>
-          <Button
-            display="flex"
-            color="black"
-            alignItems="center"
-            height="100%"
-            p="1rem"
-            onClick={addElementToActive}
-            sx={{
-              cursor: 'pointer',
-              borderRadius: 0,
-              ':hover': {
-                bg: 'black',
-                color: 'white',
-                transition: 'background-color 300ms, color 300ms',
-              },
-            }}
-          >
-            Add Element
-          </Button>
-          <Button
-            display="flex"
-            color="black"
-            alignItems="center"
-            height="100%"
-            p="1rem"
+          <Control onClick={addElementToActive}>Add Element</Control>
+          <Control
+            // Prevent users from removing the canvas
+            disabled={Boolean(activeEl.getAttribute('data-canvasid'))}
             onClick={removeActiveElement}
-            sx={{
-              cursor: 'pointer',
-              borderRadius: 0,
-              ':hover': {
-                bg: 'black',
-                color: 'white',
-                transition: 'background-color 300ms, color 300ms',
-              },
-            }}
           >
             Remove Element
-          </Button>
+          </Control>
         </ControlBar>
       )}
     </>
