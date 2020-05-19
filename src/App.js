@@ -4,6 +4,7 @@ import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
 
 import './App.css';
+import { Text } from 'rebass';
 
 function App() {
   const canvasRef = React.useRef();
@@ -126,6 +127,10 @@ function App() {
 
   return (
     <>
+      <Text sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+        {process.env.REACT_APP_VERSION}
+      </Text>
+
       <Canvas
         ref={canvasRef}
         canvasId="canvas-one"
