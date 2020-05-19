@@ -7,19 +7,22 @@
     },
     "extends": [
         "prettier",
+        "plugin:prettier/recommended",
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "plugins": ["prettier"],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
-    },
-    "rules": {
-        "no-console": "warn"
     },
     "settings": {
         "react": {
             "version": "detect"
         }
+    },
+    "rules": {
+        "no-console": "warn",
+        "prettier/prettier": "error"
     }
 }
