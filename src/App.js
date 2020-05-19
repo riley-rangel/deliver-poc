@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from 'rebass';
+import { Box, Button } from 'rebass';
 import { Canvas } from './components/Canvas';
 import { ControlBar } from './components/ControlBar';
 
@@ -44,36 +44,44 @@ function App() {
 
       {Boolean(activeEl) && (
         <ControlBar>
-          <Box
+          <Button
             display="flex"
+            color="black"
             alignItems="center"
             height="100%"
             p="1rem"
             onClick={addElementToActive}
             sx={{
+              cursor: 'pointer',
+              borderRadius: 0,
               ':hover': {
-                bg: 'lightgray',
-                transition: 'background-color 300ms',
+                bg: 'black',
+                color: 'white',
+                transition: 'background-color 300ms, color 300ms',
               },
             }}
           >
             Add Element
-          </Box>
-          <Box
+          </Button>
+          <Button
             display="flex"
+            color="black"
             alignItems="center"
             height="100%"
             p="1rem"
             onClick={removeActiveElement}
             sx={{
+              cursor: 'pointer',
+              borderRadius: 0,
               ':hover': {
-                bg: 'lightgray',
-                transition: 'background-color 300ms',
+                bg: 'black',
+                color: 'white',
+                transition: 'background-color 300ms, color 300ms',
               },
             }}
           >
             Remove Element
-          </Box>
+          </Button>
         </ControlBar>
       )}
     </>
