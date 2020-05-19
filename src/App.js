@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Box } from 'rebass';
 import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
 
@@ -75,8 +74,9 @@ function App() {
   }, [activeEl]);
 
   const removeActiveElement = React.useCallback(() => {
+    const { nextSibling, previousSibling, parentElement } = activeEl;
+    setActiveEl(nextSibling || previousSibling || parentElement || undefined);
     activeEl.parentElement.removeChild(activeEl);
-    setActiveEl(undefined);
   }, [activeEl]);
 
   return (
