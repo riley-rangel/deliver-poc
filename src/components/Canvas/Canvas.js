@@ -5,113 +5,77 @@ import { Box } from 'rebass';
 /**
  * Component which dictates the visual representation of a user's interaction with elements inside of the document.
  */
-const Canvas = ({
-  activeElement,
-  children,
-  canvasId = 'canvas',
-  onSelectElement,
-}) => {
-  const canvasRef = React.useRef(null);
-  const [selectableEl, setSelectableEl] = React.useState();
-
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-
-    const updateActiveEl = () => {
-      onSelectElement(selectableEl);
-    };
-
-    canvas.addEventListener('click', updateActiveEl);
-
-    return () => {
-      canvas.removeEventListener('click', updateActiveEl);
-    };
-  }, [selectableEl, onSelectElement]);
-
-  /**
-   * Updates the state of the current selectable element.
-   */
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-
-    const updateSelectableEl = ({ pageX, pageY }) => {
-      const closestElToMouse = document.elementFromPoint(pageX, pageY);
-
-      if (selectableEl !== closestElToMouse) {
-        setSelectableEl(closestElToMouse);
-      }
-    };
-
-    canvas.addEventListener('mousemove', updateSelectableEl);
-
-    return () => {
-      canvas.removeEventListener('mousemove', updateSelectableEl);
-    };
-  }, [selectableEl]);
-
-  /**
-   * Removes the selectable element when user leaves the canvas.
-   */
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-
-    const removeSelectableEl = () => {
-      setSelectableEl(undefined);
-    };
-
-    canvas.addEventListener('mouseleave', removeSelectableEl);
-
-    return () => {
-      canvas.removeEventListener('mouseleave', removeSelectableEl);
-    };
-  }, []);
-
-  /**
-   * Show user which element is selectable.
-   */
-  React.useEffect(() => {
-    if (selectableEl) {
-      selectableEl.setAttribute('data-selectable', true);
-    }
-
-    return () => {
+const Canvas = React.forwardRef(
+  ({ activeEl, selectableEl, children, canvasId = 'canvas' }, ref) => {
+    /**
+     * Show user which element is selectable.
+     */
+    React.useEffect(() => {
       if (selectableEl) {
-        selectableEl.removeAttribute('data-selectable');
+        selectableEl.setAttribute('data-selectable', true);
       }
-    };
-  }, [selectableEl]);
 
-  /**
-   * Show user which element is active.
-   */
-  React.useEffect(() => {
-    if (activeElement) {
-      activeElement.setAttribute('data-active', true);
-    }
+      return () => {
+        if (selectableEl) {
+          selectableEl.removeAttribute('data-selectable');
+        }
+      };
+    }, [selectableEl]);
 
-    return () => {
-      if (activeElement) {
-        activeElement.removeAttribute('data-active');
+    /**
+     * Show user which element is active.
+     */
+    React.useEffect(() => {
+      if (activeEl) {
+        activeEl.setAttribute('data-active', true);
       }
-    };
-  }, [activeElement]);
 
-  return (
-    <Box
-      data-canvasid={canvasId}
-      ref={canvasRef}
-      sx={{
-        '*[data-selectable]:not([data-active])': {
-          outline: 'solid lightgreen',
-        },
-        '*[data-active]': {
-          outline: 'solid orange',
-        },
-      }}
-    >
-      {children}
-    </Box>
-  );
-};
+      return () => {
+        if (activeEl) {
+          activeEl.removeAttribute('data-active');
+        }
+      };
+    }, [activeEl]);
+
+    return (
+      <Box
+        data-canvasid={canvasId}
+        ref={ref}
+        sx={{
+          height: '100vh',
+          '&:empty': {
+            ':before': {
+              position: 'absolute',
+              content: activeEl
+                ? '"Now, add a new element!"'
+                : '"Click me to get started!"',
+              top: '50%',
+              width: '100%',
+              textAlign: 'center',
+            },
+          },
+          '&[data-selectable]:not([data-active])': {
+            outline: '2px solid blueviolet',
+            outlineOffset: '-2px',
+          },
+          '*[data-selectable]:not([data-active])': {
+            outline: '2px solid blueviolet',
+            outlineOffset: '-2px',
+          },
+          '&[data-active]': {
+            outline: '2px solid lawngreen',
+            outlineOffset: '-2px',
+          },
+          '*[data-active]': {
+            outline: '2px solid lawngreen',
+            outlineOffset: '-2px',
+          },
+        }}
+      >
+        {children}
+      </Box>
+    );
+  }
+);
 
 export default Canvas;
