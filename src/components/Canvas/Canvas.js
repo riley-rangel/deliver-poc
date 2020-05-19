@@ -5,16 +5,20 @@ import { Box } from 'rebass';
 /**
  * Component which dictates the visual representation of a user's interaction with elements inside of the document.
  */
-const Canvas = ({ children, canvasId = 'canvas' }) => {
+const Canvas = ({
+  activeElement,
+  children,
+  canvasId = 'canvas',
+  onSelectElement,
+}) => {
   const canvasRef = React.useRef(null);
   const [selectableEl, setSelectableEl] = React.useState();
-  const [activeEl, setActiveEl] = React.useState();
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
 
     const updateActiveEl = () => {
-      setActiveEl(selectableEl);
+      onSelectElement(selectableEl);
     };
 
     canvas.addEventListener('click', updateActiveEl);
@@ -22,7 +26,7 @@ const Canvas = ({ children, canvasId = 'canvas' }) => {
     return () => {
       canvas.removeEventListener('click', updateActiveEl);
     };
-  }, [selectableEl]);
+  }, [selectableEl, onSelectElement]);
 
   /**
    * Updates the state of the current selectable element.
@@ -81,16 +85,16 @@ const Canvas = ({ children, canvasId = 'canvas' }) => {
    * Show user which element is active.
    */
   React.useEffect(() => {
-    if (activeEl) {
-      activeEl.setAttribute('data-active', true);
+    if (activeElement) {
+      activeElement.setAttribute('data-active', true);
     }
 
     return () => {
-      if (activeEl) {
-        activeEl.removeAttribute('data-active');
+      if (activeElement) {
+        activeElement.removeAttribute('data-active');
       }
     };
-  }, [activeEl]);
+  }, [activeElement]);
 
   return (
     <Box
