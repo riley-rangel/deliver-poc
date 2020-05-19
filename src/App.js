@@ -118,7 +118,9 @@ function App() {
    */
   const removeActiveElement = React.useCallback(() => {
     const { nextSibling, previousSibling, parentElement } = activeEl;
-    setActiveEl(nextSibling || previousSibling || parentElement || undefined);
+    const findFirstElement = (...args) =>
+      args.find((i) => i instanceof Element);
+    setActiveEl(findFirstElement(nextSibling, previousSibling, parentElement));
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
 
