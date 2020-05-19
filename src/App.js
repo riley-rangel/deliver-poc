@@ -10,7 +10,6 @@ function App() {
   const [activeEl, setActiveEl] = React.useState();
 
   const addElementToActive = React.useCallback(() => {
-    console.log(activeEl);
     if (activeEl) {
       const el = document.createElement('div');
       el.appendChild(document.createTextNode('New Element Added!'));
@@ -19,8 +18,8 @@ function App() {
   }, [activeEl]);
 
   const removeActiveElement = React.useCallback(() => {
-    setActiveEl(undefined);
     activeEl.parentElement.removeChild(activeEl);
+    setActiveEl(undefined);
   }, [activeEl]);
 
   return (
@@ -30,7 +29,7 @@ function App() {
         activeElement={activeEl}
         onSelectElement={setActiveEl}
       >
-        <Box height="200px" width="100%" sx={{ border: '1px solid black' }}>
+        <Box width="100%" sx={{ border: '1px solid black' }}>
           <Box height="50px" width="50px" sx={{ border: '1px solid black' }}>
             Box
           </Box>
@@ -45,8 +44,36 @@ function App() {
 
       {Boolean(activeEl) && (
         <ControlBar>
-          <Box onClick={addElementToActive}>Add Element</Box>
-          <Box onClick={removeActiveElement}>Remove Element</Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            height="100%"
+            p="1rem"
+            onClick={addElementToActive}
+            sx={{
+              ':hover': {
+                bg: 'lightgray',
+                transition: 'background-color 300ms',
+              },
+            }}
+          >
+            Add Element
+          </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            height="100%"
+            p="1rem"
+            onClick={removeActiveElement}
+            sx={{
+              ':hover': {
+                bg: 'lightgray',
+                transition: 'background-color 300ms',
+              },
+            }}
+          >
+            Remove Element
+          </Box>
         </ControlBar>
       )}
     </>

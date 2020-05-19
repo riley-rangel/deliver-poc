@@ -13,7 +13,7 @@ const ControlBar = ({ children }) => {
       p={2}
       sx={{ position: 'fixed', bottom: 0 }}
     >
-      <Box height="100%" sx={{ border: '2px solid black' }}>
+      <Box display="flex" sx={{ border: '2px solid black' }}>
         {children}
       </Box>
     </Box>
