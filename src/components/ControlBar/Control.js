@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'rebass';
 
 /**
- * @type {{ typeof Button }}
+ * @type {React.FC<import('rebass').ButtonProps>}
  */
 const Control = ({ children, sx, ...props }) => {
   return (
