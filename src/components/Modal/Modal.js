@@ -20,6 +20,7 @@ const Modal = ({ children, onClick, onClose, ...props }) => {
           p: '1rem',
           bg: 'white',
           boxShadow: '4px 4px rgba(0,0,0,0.5)',
+          fontFamily: 'system-ui',
         }}
         {...props}
       >

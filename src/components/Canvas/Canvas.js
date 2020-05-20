@@ -45,6 +45,7 @@ const Canvas = React.forwardRef(
           minHeight: '100vh',
           '&:empty': {
             ':before': {
+              fontFamily: 'system-ui',
               position: 'absolute',
               content: activeEl
                 ? '"Now, add a new element!"'
