@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Text } from 'rebass';
 
 import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
+import { useModal } from './components/Modal';
 
 import './App.css';
-import { Text } from 'rebass';
 
 function App() {
-  const canvasRef = React.useRef();
-  const [activeEl, setActiveEl] = React.useState();
-  const [selectableEl, setSelectableEl] = React.useState();
+  const canvasRef = useRef();
+  const [activeEl, setActiveEl] = useState();
+  const [selectableEl, setSelectableEl] = useState();
+  const [modalActions, Modal] = useModal();
 
   /**
    * Update active element on click.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const updateActiveEl = () => {
@@ -31,7 +33,7 @@ function App() {
   /**
    * Updates the state of the current selectable element.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const updateSelectableEl = ({ pageX, pageY }) => {
@@ -52,7 +54,7 @@ function App() {
   /**
    * Removes the selectable element when user leaves the canvas.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const removeSelectableEl = () => {
@@ -69,7 +71,7 @@ function App() {
   /**
    * Persists user content for the duration of the session.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
     const sessionKey = 'canvas-session-content';
     const content = window.sessionStorage.getItem(sessionKey);
@@ -105,19 +107,17 @@ function App() {
    * Add element implementation.
    * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
    */
-  const addElementToActive = React.useCallback(() => {
+  const addElementToActive = useCallback(() => {
     if (activeEl) {
-      const el = document.createElement('div');
-      el.appendChild(document.createTextNode('New Element Added!'));
-      activeEl.appendChild(el);
+      modalActions.open();
     }
-  }, [activeEl]);
+  }, [activeEl, modalActions]);
 
   /**
    * Remove element implementation. This one will need re-organization beyond POC to accomplish the below.
    * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
    */
-  const removeActiveElement = React.useCallback(() => {
+  const removeActiveElement = useCallback(() => {
     const { nextSibling, previousSibling, parentElement } = activeEl;
     const findFirstElement = (...args) =>
       args.find((i) => i instanceof Element);
@@ -150,6 +150,8 @@ function App() {
           </Control>
         </ControlBar>
       )}
+
+      <Modal>test</Modal>
     </>
   );
 }
