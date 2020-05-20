@@ -10,6 +10,7 @@ const Control = ({ children, sx, ...props }) => {
       display="flex"
       color="black"
       alignItems="center"
+      justifyContent="center"
       height="100%"
       p="1rem"
       sx={{
@@ -18,8 +19,8 @@ const Control = ({ children, sx, ...props }) => {
         ':hover:not(:disabled)': {
           bg: 'black',
           color: 'white',
-          transition: 'background-color 300ms, color 300ms',
         },
+        transition: 'background-color 300ms, color 300ms',
         '&:disabled': {
           opacity: 0.75,
           bg: 'lightgray',

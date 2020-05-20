@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Text } from 'rebass';
+import { Text, Box } from 'rebass';
 
 import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
@@ -104,16 +104,6 @@ function App() {
   }, []);
 
   /**
-   * Add element implementation.
-   * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
-   */
-  const addElementToActive = useCallback(() => {
-    if (activeEl) {
-      modalActions.open();
-    }
-  }, [activeEl, modalActions]);
-
-  /**
    * Remove element implementation. This one will need re-organization beyond POC to accomplish the below.
    * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
    */
@@ -140,7 +130,7 @@ function App() {
 
       {Boolean(activeEl) && (
         <ControlBar>
-          <Control onClick={addElementToActive}>Add Element</Control>
+          <Control onClick={modalActions.open}>Add Element</Control>
           <Control
             // Prevent users from removing the canvas
             disabled={Boolean(activeEl.getAttribute('data-canvasid'))}
@@ -151,7 +141,20 @@ function App() {
         </ControlBar>
       )}
 
-      <Modal>test</Modal>
+      <Modal>
+        <Box>
+          <Text mb="1rem">What would you like to add to the page?</Text>
+
+          <Box display="grid" sx={{ gridTemplateColumns: '1fr 1fr' }}>
+            <Control
+              onClick={() => console.log('layout')}
+              sx={{ border: '2px solid black' }}
+            >
+              Layout
+            </Control>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 }

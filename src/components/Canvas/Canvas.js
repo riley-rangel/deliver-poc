@@ -55,12 +55,12 @@ const Canvas = React.forwardRef(
             },
           },
           '&[data-selectable]:not([data-active]),*[data-selectable]:not([data-active])': {
-            outline: '2px solid blueviolet',
-            outlineOffset: '-2px',
+            outline: '3px solid gold',
+            outlineOffset: '-3px',
           },
           '&[data-active],*[data-active]': {
-            outline: '2px solid lawngreen',
-            outlineOffset: '-2px',
+            outline: '3px solid darkorange',
+            outlineOffset: '-3px',
           },
         }}
       >
