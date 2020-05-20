@@ -19,7 +19,7 @@ const useModal = ({ isInitiallyOpen = false } = {}) => {
 
   const ConnectedModal = useCallback(
     (props) => isOpen && <Modal onClose={actions.close} {...props} />,
-    [isOpen]
+    [isOpen, actions.close]
   );
 
   return [actions, ConnectedModal];
