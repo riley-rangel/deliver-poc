@@ -11,7 +11,6 @@ const Control = ({ children, sx, ...props }) => {
       color="black"
       alignItems="center"
       justifyContent="center"
-      height="100%"
       p="1rem"
       sx={{
         cursor: 'pointer',
