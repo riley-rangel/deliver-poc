@@ -3,10 +3,17 @@ import { Box } from 'rebass';
 
 import ModalOverlay from './ModalOverlay';
 
-const Modal = ({ children, onClose, ...props }) => {
+const Modal = ({ children, onClick, onClose, ...props }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <Box
+        onClick={(e) => {
+          e.stopPropagation();
+
+          if (onClick) {
+            onClick(e);
+          }
+        }}
         sx={{
           m: 'auto',
           border: '2px solid black',
