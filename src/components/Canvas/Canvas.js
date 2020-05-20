@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Box } from 'rebass';
 
@@ -10,7 +10,7 @@ const Canvas = React.forwardRef(
     /**
      * Show user which element is selectable.
      */
-    React.useEffect(() => {
+    useEffect(() => {
       if (selectableEl) {
         selectableEl.setAttribute('data-selectable', true);
       }
@@ -25,7 +25,7 @@ const Canvas = React.forwardRef(
     /**
      * Show user which element is active.
      */
-    React.useEffect(() => {
+    useEffect(() => {
       if (activeEl) {
         activeEl.setAttribute('data-active', true);
       }
@@ -42,7 +42,7 @@ const Canvas = React.forwardRef(
         data-canvasid={canvasId}
         ref={ref}
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           '&:empty': {
             ':before': {
               position: 'absolute',
