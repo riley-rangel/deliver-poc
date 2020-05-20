@@ -5,6 +5,8 @@ import { Canvas } from './components/Canvas';
 import { Control, ControlBar } from './components/ControlBar';
 import { useModal } from './components/Modal';
 
+import * as elements from './elements';
+
 import './App.css';
 
 function App() {
@@ -103,6 +105,17 @@ function App() {
     };
   }, []);
 
+  const addNewElement = useCallback(
+    (element) => {
+      const el = document.createElement(element.defaultType);
+      el.appendChild(document.createTextNode(element.label));
+      activeEl.appendChild(el);
+      setActiveEl(el);
+      modalActions.close();
+    },
+    [activeEl, modalActions]
+  );
+
   /**
    * Remove element implementation. This one will need re-organization beyond POC to accomplish the below.
    * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
@@ -147,7 +160,7 @@ function App() {
 
           <Box display="grid" sx={{ gridTemplateColumns: '1fr 1fr' }}>
             <Control
-              onClick={() => console.log('layout')}
+              onClick={() => addNewElement(elements.layout)}
               sx={{ border: '2px solid black' }}
             >
               Layout
