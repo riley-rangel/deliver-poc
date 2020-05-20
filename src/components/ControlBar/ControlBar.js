@@ -9,13 +9,15 @@ const ControlBar = ({ children }) => {
     <Box
       display="flex"
       height="90px"
-      width="100%"
-      p={2}
-      sx={{ position: 'fixed', bottom: 0 }}
+      m={2}
+      sx={{
+        position: 'fixed',
+        bottom: 0,
+        border: '2px solid black',
+        boxShadow: '4px 4px rgba(0,0,0,0.5)',
+      }}
     >
-      <Box display="flex" sx={{ border: '2px solid black' }}>
-        {children}
-      </Box>
+      {children}
     </Box>
   );
 };
