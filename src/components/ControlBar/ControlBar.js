@@ -26,6 +26,7 @@ const ControlBar = ({ children, orientation, sideX, sideY }) => {
         [sideY]: 0,
         border: '2px solid black',
         boxShadow: '4px 4px rgba(0,0,0,0.5)',
+        bg: 'white',
       }}
     >
       {children}

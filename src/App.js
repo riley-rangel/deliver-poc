@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Text, Box } from 'rebass';
 
+import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
-import { Control, ControlBar } from './components/ControlBar';
+import { ControlBar, Space } from './components/ControlBar';
 import { useModal } from './components/Modal';
 
 import * as elements from './elements';
@@ -109,6 +110,7 @@ function App() {
     (element) => {
       const el = document.createElement(element.defaultType);
       el.appendChild(document.createTextNode(element.label));
+      el.setAttribute('data-canvas-element-type', element.name);
       activeEl.appendChild(el);
       setActiveEl(el);
       modalActions.close();
@@ -142,15 +144,21 @@ function App() {
       />
 
       {Boolean(activeEl) && (
-        <ControlBar>
-          <Control onClick={modalActions.open}>Add Element</Control>
-          <Control
+        <ControlBar orientation="horizontal" sideX="left" sideY="bottom">
+          <Button onClick={modalActions.open}>Add Element</Button>
+          <Button
             // Prevent users from removing the canvas
             disabled={Boolean(activeEl.getAttribute('data-canvasid'))}
             onClick={removeActiveElement}
           >
             Remove Element
-          </Control>
+          </Button>
+        </ControlBar>
+      )}
+
+      {Boolean(activeEl) && (
+        <ControlBar orientation="vertical" sideX="right" sideY="top">
+          <Space />
         </ControlBar>
       )}
 
@@ -159,12 +167,12 @@ function App() {
           <Text mb="1rem">What would you like to add to the page?</Text>
 
           <Box display="grid" sx={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Control
+            <Button
               onClick={() => addNewElement(elements.layout)}
               sx={{ border: '2px solid black' }}
             >
               Layout
-            </Control>
+            </Button>
           </Box>
         </Box>
       </Modal>
