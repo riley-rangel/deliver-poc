@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react';
-import { Box } from 'rebass';
+import React, { useReducer, useRef, useEffect } from 'react';
+import { Box, Button } from 'rebass';
 
 const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   const color = {
@@ -38,110 +38,51 @@ const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   );
 };
 
-/**
- * @typedef {{
- *  type: 'margin-top' | 'margin-right' | 'margin-bottom' | 'margin-left' | 'border-top' | 'border-right' | 'border-bottom' | 'border-left' | 'padding-top' | 'padding-right' | 'padding-bottom' | 'padding-left';
- *  checked: boolean;
- * }} SelectionAction
- *
- * @typedef {{
- *  marginTop: boolean;
- *  marginRight: boolean;
- *  marginBottom: boolean;
- *  marginLeft: boolean;
- *  borderTop: boolean;
- *  borderRight: boolean;
- *  borderBottom: boolean;
- *  borderLeft: boolean;
- *  paddingTop: boolean;
- *  paddingRight: boolean;
- *  paddingBottom: boolean;
- *  paddingLeft: boolean;
- * }} SelectionState
- */
-
 const initState = () => ({
-  marginTop: false,
-  marginRight: false,
-  marginBottom: false,
-  marginLeft: false,
-  borderTop: false,
-  borderRight: false,
-  borderBottom: false,
-  borderLeft: false,
-  paddingTop: false,
-  paddingRight: false,
-  paddingBottom: false,
-  paddingLeft: false,
+  amount: 0,
+  properties: {
+    'margin-top': false,
+    'margin-right': false,
+    'margin-bottom': false,
+    'margin-left': false,
+    'border-top': false,
+    'border-right': false,
+    'border-bottom': false,
+    'border-left': false,
+    'padding-top': false,
+    'padding-right': false,
+    'padding-bottom': false,
+    'padding-left': false,
+  },
 });
 
 /**
  * Function to reduce a new state from a provided action state update.
- *
- * @param {SelectionState} state
- * @param {SelectionAction} action
  */
 function selectionReducer(state, action) {
   switch (action.type) {
-    case 'margin-top':
+    case 'change':
       return {
         ...state,
-        marginTop: action.checked,
+        properties: {
+          ...state.properties,
+          [action.property]: action.checked,
+        },
       };
-    case 'margin-right':
+    case 'add':
       return {
         ...state,
-        marginRight: action.checked,
+        amount: state.amount + 1,
       };
-    case 'margin-bottom':
+    case 'subtract':
       return {
         ...state,
-        marginBottom: action.checked,
+        amount: state.amount > 0 ? state.amount - 1 : 0,
       };
-    case 'margin-left':
+    case 'input':
       return {
         ...state,
-        marginLeft: action.checked,
-      };
-    case 'border-top':
-      return {
-        ...state,
-        borderTop: action.checked,
-      };
-    case 'border-right':
-      return {
-        ...state,
-        borderRight: action.checked,
-      };
-    case 'border-bottom':
-      return {
-        ...state,
-        borderBottom: action.checked,
-      };
-    case 'border-left':
-      return {
-        ...state,
-        borderLeft: action.checked,
-      };
-    case 'padding-top':
-      return {
-        ...state,
-        paddingTop: action.checked,
-      };
-    case 'padding-right':
-      return {
-        ...state,
-        paddingRight: action.checked,
-      };
-    case 'padding-bottom':
-      return {
-        ...state,
-        paddingBottom: action.checked,
-      };
-    case 'padding-left':
-      return {
-        ...state,
-        paddingLeft: action.checked,
+        amount: Number(action.amount.replace(/\D/g, '')),
       };
     case 'reset':
       return initState();
@@ -150,22 +91,36 @@ function selectionReducer(state, action) {
   }
 }
 
-const Space = () => {
+const Space = ({ onChange }) => {
   const [state, dispatch] = useReducer(selectionReducer, initState());
+  const prevAmount = useRef(null);
 
   const handleChecked = ({ target }) => {
     dispatch({
+      type: 'change',
       checked: target.checked,
-      type: target.getAttribute('data-canvas-css-prop'),
+      property: target.getAttribute('data-canvas-css-prop'),
     });
   };
 
-  // const handleValueChange = ({ target }) => {
+  /** Watches value and invoke onChange when needed. */
+  useEffect(() => {
+    const { amount, properties } = state;
 
-  // };
+    if (amount !== prevAmount.current) {
+      const keys = Object.keys(properties).filter(
+        (key) => properties[key] === true
+      );
+      if (keys.length) {
+        onChange({ properties: keys, value: amount });
+      }
+    }
+
+    prevAmount.current = amount;
+  }, [state, onChange]);
 
   return (
-    <Box>
+    <Box display="flex">
       <Box
         minHeight="200px"
         minWidth="200px"
@@ -175,10 +130,11 @@ const Space = () => {
           gridTemplateRows: 'repeat(7, 1fr)',
           gridGap: '1px',
           bg: 'black',
+          border: '1px solid black',
         }}
       >
         <SpaceCheckbox
-          checked={state.marginTop}
+          checked={state.properties['margin-top']}
           label="Margin Top"
           name="marginTop"
           data-canvas-css-prop="margin-top"
@@ -191,7 +147,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.marginRight}
+          checked={state.properties['margin-right']}
           label="Margin Right"
           name="marginRight"
           data-canvas-css-prop="margin-right"
@@ -204,7 +160,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.marginBottom}
+          checked={state.properties['margin-bottom']}
           label="Margin Bottom"
           name="marginBottom"
           data-canvas-css-prop="margin-bottom"
@@ -217,7 +173,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.marginLeft}
+          checked={state.properties['margin-left']}
           label="Margin Left"
           name="marginLeft"
           data-canvas-css-prop="margin-left"
@@ -230,7 +186,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.borderTop}
+          checked={state.properties['border-top']}
           label="Border Top"
           name="borderTop"
           data-canvas-css-prop="border-top"
@@ -243,7 +199,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.borderRight}
+          checked={state.properties['border-right']}
           label="Border Right"
           name="borderRight"
           data-canvas-css-prop="border-right"
@@ -256,7 +212,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.borderBottom}
+          checked={state.properties['border-bottom']}
           label="Border Bottom"
           name="borderBottom"
           data-canvas-css-prop="border-bottom"
@@ -269,7 +225,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.borderLeft}
+          checked={state.properties['border-left']}
           label="Border Left"
           name="borderLeft"
           data-canvas-css-prop="border-left"
@@ -282,7 +238,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.paddingTop}
+          checked={state.properties['padding-top']}
           label="Padding Top"
           name="paddingTop"
           data-canvas-css-prop="padding-top"
@@ -295,7 +251,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.paddingRight}
+          checked={state.properties['padding-right']}
           label="Padding Right"
           name="paddingRight"
           data-canvas-css-prop="padding-right"
@@ -308,7 +264,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.paddingBottom}
+          checked={state.properties['padding-bottom']}
           label="Padding Bottom"
           name="paddingBottom"
           data-canvas-css-prop="padding-bottom"
@@ -321,7 +277,7 @@ const Space = () => {
           }}
         />
         <SpaceCheckbox
-          checked={state.paddingLeft}
+          checked={state.properties['padding-left']}
           label="Padding Left"
           name="paddingLeft"
           data-canvas-css-prop="padding-left"
@@ -350,11 +306,33 @@ const Space = () => {
         </Box>
       </Box>
 
-      {/* <Box>
-        <Box>-</Box>
-        <input type="text" onChange={} />
-        <Box>+</Box>
-      </Box> */}
+      <Box display="flex">
+        <Box margin="auto">
+          <Button
+            color="black"
+            onClick={() => {
+              dispatch({ type: 'subtract' });
+            }}
+          >
+            -
+          </Button>
+          <input
+            type="text"
+            onChange={({ target }) => {
+              dispatch({ type: 'input', amount: target.value });
+            }}
+            value={state.amount}
+          />
+          <Button
+            color="black"
+            onClick={() => {
+              dispatch({ type: 'add' });
+            }}
+          >
+            +
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
