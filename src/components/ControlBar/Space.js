@@ -3,9 +3,9 @@ import { Box, Button } from 'rebass';
 
 const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   const color = {
-    margin: 'orange',
-    border: 'yellow',
-    padding: 'green',
+    margin: '255, 152, 0',
+    border: '255, 235, 59',
+    padding: '139, 195, 74',
   }[type];
 
   return (
@@ -14,16 +14,18 @@ const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
         '> input[type="checkbox"] + label': {
           fontSize: '0px',
         },
-        '> input[type="checkbox"] + label:after': {
+        '> input[type="checkbox"] + label::before': {
           display: 'inline-block',
           height: '100%',
           width: '100%',
           content: '""',
-          bg: color,
-          opacity: 0.3,
+          bg: `rgba(${color}, 0.3)`,
         },
-        '> input[type="checkbox"]:checked + label:after': {
-          opacity: 1,
+        '> input[type="checkbox"]:checked + label::before': {
+          bg: `rgba(${color}, 1)`,
+        },
+        '> input[type="checkbox"]:focus + label::before': {
+          outline: '-webkit-focus-ring-color auto 5px',
         },
         '> input[type="checkbox"]': {
           position: 'absolute',
@@ -61,7 +63,7 @@ const initState = () => ({
  */
 function selectionReducer(state, action) {
   switch (action.type) {
-    case 'change':
+    case 'select':
       return {
         ...state,
         properties: {
@@ -97,13 +99,15 @@ const Space = ({ onChange }) => {
 
   const handleChecked = ({ target }) => {
     dispatch({
-      type: 'change',
+      type: 'select',
       checked: target.checked,
       property: target.getAttribute('data-canvas-css-prop'),
     });
   };
 
-  /** Watches value and invoke onChange when needed. */
+  /**
+   * Watches value and invoke onChange when needed.
+   * */
   useEffect(() => {
     const { amount, properties } = state;
 
@@ -290,8 +294,9 @@ const Space = ({ onChange }) => {
           }}
         />
 
-        <Box
+        <Button
           onClick={() => dispatch({ type: 'reset' })}
+          p={0}
           sx={{
             gridColumn: '4',
             gridRow: '4',
@@ -299,13 +304,16 @@ const Space = ({ onChange }) => {
             justifyContent: 'center',
             alignItems: 'center',
             fontFamily: 'system-ui',
+            borderRadius: 0,
             bg: 'lightgray',
+            color: 'black',
           }}
         >
           X
-        </Box>
+        </Button>
       </Box>
 
+      {/* TODO: This part of the UI needs some love... */}
       <Box display="flex">
         <Box margin="auto">
           <Button
