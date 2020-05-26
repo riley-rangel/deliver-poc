@@ -41,6 +41,7 @@ const Canvas = React.forwardRef(
       <Box
         data-canvasid={canvasId}
         ref={ref}
+        overflow="auto"
         sx={{
           minHeight: '100vh',
           '&:empty': {

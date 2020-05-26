@@ -130,6 +130,12 @@ function App() {
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
 
+  const updateStyles = (properties, value) => {
+    properties.forEach((property) => {
+      activeEl.style[property] = `${value}px`;
+    });
+  };
+
   return (
     <>
       <Text sx={{ position: 'fixed', bottom: 0, right: 0 }}>
@@ -156,9 +162,13 @@ function App() {
         </ControlBar>
       )}
 
-      {Boolean(activeEl) && (
+      {Boolean(activeEl) && !activeEl.getAttribute('data-canvasid') && (
         <ControlBar orientation="vertical" sideX="right" sideY="top">
-          <Space />
+          <Space
+            onChange={({ properties, value }) => {
+              updateStyles(properties, value);
+            }}
+          />
         </ControlBar>
       )}
 
