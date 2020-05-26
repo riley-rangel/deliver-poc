@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Box } from 'rebass';
 
@@ -10,7 +10,7 @@ const Canvas = React.forwardRef(
     /**
      * Show user which element is selectable.
      */
-    React.useEffect(() => {
+    useEffect(() => {
       if (selectableEl) {
         selectableEl.setAttribute('data-selectable', true);
       }
@@ -25,7 +25,7 @@ const Canvas = React.forwardRef(
     /**
      * Show user which element is active.
      */
-    React.useEffect(() => {
+    useEffect(() => {
       if (activeEl) {
         activeEl.setAttribute('data-active', true);
       }
@@ -41,10 +41,12 @@ const Canvas = React.forwardRef(
       <Box
         data-canvasid={canvasId}
         ref={ref}
+        overflow="auto"
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           '&:empty': {
             ':before': {
+              fontFamily: 'system-ui',
               position: 'absolute',
               content: activeEl
                 ? '"Now, add a new element!"'
@@ -55,12 +57,12 @@ const Canvas = React.forwardRef(
             },
           },
           '&[data-selectable]:not([data-active]),*[data-selectable]:not([data-active])': {
-            outline: '2px solid blueviolet',
-            outlineOffset: '-2px',
+            outline: '3px solid gold',
+            outlineOffset: '-3px',
           },
           '&[data-active],*[data-active]': {
-            outline: '2px solid lawngreen',
-            outlineOffset: '-2px',
+            outline: '3px solid darkorange',
+            outlineOffset: '-3px',
           },
         }}
       >

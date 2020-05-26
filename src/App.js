@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Text, Box } from 'rebass';
 
+import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
-import { Control, ControlBar } from './components/ControlBar';
+import { ControlBar, Space } from './components/ControlBar';
+import { useModal } from './components/Modal';
+
+import * as elements from './elements';
 
 import './App.css';
-import { Text } from 'rebass';
 
 function App() {
-  const canvasRef = React.useRef();
-  const [activeEl, setActiveEl] = React.useState();
-  const [selectableEl, setSelectableEl] = React.useState();
+  const canvasRef = useRef();
+  const [activeEl, setActiveEl] = useState();
+  const [selectableEl, setSelectableEl] = useState();
+  const [modalActions, Modal] = useModal();
 
   /**
    * Update active element on click.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const updateActiveEl = () => {
@@ -31,7 +36,7 @@ function App() {
   /**
    * Updates the state of the current selectable element.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const updateSelectableEl = ({ pageX, pageY }) => {
@@ -52,7 +57,7 @@ function App() {
   /**
    * Removes the selectable element when user leaves the canvas.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
 
     const removeSelectableEl = () => {
@@ -69,7 +74,7 @@ function App() {
   /**
    * Persists user content for the duration of the session.
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const { current: canvas } = canvasRef;
     const sessionKey = 'canvas-session-content';
     const content = window.sessionStorage.getItem(sessionKey);
@@ -101,29 +106,35 @@ function App() {
     };
   }, []);
 
-  /**
-   * Add element implementation.
-   * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
-   */
-  const addElementToActive = React.useCallback(() => {
-    if (activeEl) {
-      const el = document.createElement('div');
-      el.appendChild(document.createTextNode('New Element Added!'));
+  const addNewElement = useCallback(
+    (element) => {
+      const el = document.createElement(element.defaultType);
+      el.appendChild(document.createTextNode(element.label));
+      el.setAttribute('data-canvas-element-type', element.name);
       activeEl.appendChild(el);
-    }
-  }, [activeEl]);
+      setActiveEl(el);
+      modalActions.close();
+    },
+    [activeEl, modalActions]
+  );
 
   /**
    * Remove element implementation. This one will need re-organization beyond POC to accomplish the below.
    * Ideally, would like to abstract this as far away so that it really boils down to what the user is trying to do, and the implementation can be changed as the DOM API changes without affecting the app as a whole.
    */
-  const removeActiveElement = React.useCallback(() => {
+  const removeActiveElement = useCallback(() => {
     const { nextSibling, previousSibling, parentElement } = activeEl;
     const findFirstElement = (...args) =>
       args.find((i) => i instanceof Element);
     setActiveEl(findFirstElement(nextSibling, previousSibling, parentElement));
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
+
+  const updateStyles = (properties, value) => {
+    properties.forEach((property) => {
+      activeEl.style[property] = `${value}px`;
+    });
+  };
 
   return (
     <>
@@ -139,17 +150,42 @@ function App() {
       />
 
       {Boolean(activeEl) && (
-        <ControlBar>
-          <Control onClick={addElementToActive}>Add Element</Control>
-          <Control
+        <ControlBar orientation="horizontal" sideX="left" sideY="bottom">
+          <Button onClick={modalActions.open}>Add Element</Button>
+          <Button
             // Prevent users from removing the canvas
             disabled={Boolean(activeEl.getAttribute('data-canvasid'))}
             onClick={removeActiveElement}
           >
             Remove Element
-          </Control>
+          </Button>
         </ControlBar>
       )}
+
+      {Boolean(activeEl) && !activeEl.getAttribute('data-canvasid') && (
+        <ControlBar orientation="vertical" sideX="right" sideY="top">
+          <Space
+            onChange={({ properties, value }) => {
+              updateStyles(properties, value);
+            }}
+          />
+        </ControlBar>
+      )}
+
+      <Modal>
+        <Box>
+          <Text mb="1rem">What would you like to add to the page?</Text>
+
+          <Box display="grid" sx={{ gridTemplateColumns: '1fr 1fr' }}>
+            <Button
+              onClick={() => addNewElement(elements.layout)}
+              sx={{ border: '2px solid black' }}
+            >
+              Layout
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 }

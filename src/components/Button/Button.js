@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'rebass';
 
 /**
- * @type {{ typeof Button }}
+ * @type {React.FC<import('rebass').ButtonProps>}
  */
 const Control = ({ children, sx, ...props }) => {
   return (
@@ -10,7 +10,7 @@ const Control = ({ children, sx, ...props }) => {
       display="flex"
       color="black"
       alignItems="center"
-      height="100%"
+      justifyContent="center"
       p="1rem"
       sx={{
         cursor: 'pointer',
@@ -18,8 +18,8 @@ const Control = ({ children, sx, ...props }) => {
         ':hover:not(:disabled)': {
           bg: 'black',
           color: 'white',
-          transition: 'background-color 300ms, color 300ms',
         },
+        transition: 'background-color 300ms, color 300ms',
         '&:disabled': {
           opacity: 0.75,
           bg: 'lightgray',
