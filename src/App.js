@@ -39,8 +39,8 @@ function App() {
   useEffect(() => {
     const { current: canvas } = canvasRef;
 
-    const updateSelectableEl = ({ pageX, pageY }) => {
-      let closestElToMouse = document.elementFromPoint(pageX, pageY);
+    const updateSelectableEl = ({ clientX, clientY }) => {
+      let closestElToMouse = document.elementFromPoint(clientX, clientY);
 
       if (selectableEl !== closestElToMouse) {
         setSelectableEl(closestElToMouse);
