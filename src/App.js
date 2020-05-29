@@ -14,7 +14,26 @@ function App() {
   const canvasRef = useRef();
   const [activeEl, setActiveEl] = useState();
   const [selectableEl, setSelectableEl] = useState();
+  const [activeKey, setActiveKey] = useState(0);
   const [modalActions, Modal] = useModal();
+
+  const selectableClient = selectableEl && selectableEl.getBoundingClientRect();
+  const activeClient = activeEl && activeEl.getBoundingClientRect();
+  const activeStyles = activeEl && window.getComputedStyle(activeEl);
+  const overlayDim = {
+    mt: activeStyles && activeStyles.getPropertyValue('margin-top'),
+    mr: activeStyles && activeStyles.getPropertyValue('margin-right'),
+    mb: activeStyles && activeStyles.getPropertyValue('margin-bottom'),
+    ml: activeStyles && activeStyles.getPropertyValue('margin-left'),
+    bt: activeStyles && activeStyles.getPropertyValue('border-top-width'),
+    br: activeStyles && activeStyles.getPropertyValue('border-right-width'),
+    bb: activeStyles && activeStyles.getPropertyValue('border-bottom-width'),
+    bl: activeStyles && activeStyles.getPropertyValue('border-left-width'),
+    pt: activeStyles && activeStyles.getPropertyValue('padding-top'),
+    pr: activeStyles && activeStyles.getPropertyValue('padding-right'),
+    pb: activeStyles && activeStyles.getPropertyValue('padding-bottom'),
+    pl: activeStyles && activeStyles.getPropertyValue('padding-left'),
+  };
 
   /**
    * Update active element on click.
@@ -106,6 +125,20 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (activeEl) {
+      const observer = new MutationObserver(() => {
+        activeKey === 0 ? setActiveKey(1) : setActiveKey(0);
+      });
+
+      observer.observe(activeEl, { attributes: true });
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [activeKey, activeEl]);
+
   const addNewElement = useCallback(
     (element) => {
       const el = document.createElement(element.defaultType);
@@ -186,6 +219,74 @@ function App() {
           </Box>
         </Box>
       </Modal>
+
+      {selectableEl && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: `${selectableClient.top + window.scrollY}px`,
+            left: `${selectableClient.left + window.scrollX}px`,
+            borderStyle: 'solid',
+            borderWidth: '2px',
+            borderColor: 'green',
+            height: `${selectableClient.height}px`,
+            width: `${selectableClient.width}px`,
+            pointerEvents: 'none',
+            opacity: 0.3,
+          }}
+        />
+      )}
+
+      {activeEl && (
+        <Box
+          key={`element-key-${activeKey}`}
+          sx={{
+            position: 'absolute',
+            top: `calc(${activeClient.top + window.scrollY}px - ${
+              overlayDim.mt
+            })`,
+            left: `calc(${activeClient.left + window.scrollX}px - ${
+              overlayDim.ml
+            })`,
+            height: `calc(${activeClient.height}px + ${overlayDim.mt} + ${overlayDim.mb})`,
+            width: `calc(${activeClient.width}px + ${overlayDim.ml} + ${overlayDim.mr})`,
+            borderTopWidth: overlayDim.mt,
+            borderRightWidth: overlayDim.mr,
+            borderBottomWidth: overlayDim.mb,
+            borderLeftWidth: overlayDim.ml,
+            borderStyle: 'solid',
+            borderColor: 'orange',
+            pointerEvents: 'none',
+            opacity: 0.3,
+          }}
+        >
+          <Box
+            height="100%"
+            sx={{
+              borderTopWidth: overlayDim.bt,
+              borderRightWidth: overlayDim.br,
+              borderBottomWidth: overlayDim.bb,
+              borderLeftWidth: overlayDim.bl,
+              borderStyle: 'solid',
+              borderColor: 'yellow',
+            }}
+          >
+            <Box
+              height="100%"
+              sx={{
+                borderTopWidth: overlayDim.pt,
+                borderRightWidth: overlayDim.pr,
+                borderBottomWidth: overlayDim.pb,
+                borderLeftWidth: overlayDim.pl,
+                borderStyle: 'solid',
+                borderColor: 'green',
+              }}
+            >
+              <Box height="100%" bg="dodgerblue" />
+            </Box>
+          </Box>
+        </Box>
+      )}
     </>
   );
 }
