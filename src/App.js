@@ -4,7 +4,10 @@ import { Text, Box } from 'rebass';
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
 import { ControlBar, Space } from './components/ControlBar';
-import { ActiveIndicator } from './components/ElementIndicators';
+import {
+  ActiveIndicator,
+  SelectableIndicator,
+} from './components/ElementIndicators';
 import { useModal } from './components/Modal';
 
 import * as elements from './elements';
@@ -17,8 +20,6 @@ function App() {
   const [selectableEl, setSelectableEl] = useState();
   const [activeKey, setActiveKey] = useState(0);
   const [modalActions, Modal] = useModal();
-
-  const selectableClient = selectableEl && selectableEl.getBoundingClientRect();
 
   /**
    * Identify selectable element.
@@ -234,19 +235,8 @@ function App() {
       </Modal>
 
       {selectableEl && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: `${selectableClient.top + window.scrollY}px`,
-            left: `${selectableClient.left + window.scrollX}px`,
-            borderStyle: 'solid',
-            borderWidth: '2px',
-            borderColor: 'green',
-            height: `${selectableClient.height}px`,
-            width: `${selectableClient.width}px`,
-            pointerEvents: 'none',
-            opacity: 0.3,
-          }}
+        <SelectableIndicator
+          clientRect={selectableEl.getBoundingClientRect()}
         />
       )}
 
