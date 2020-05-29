@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Box } from 'rebass';
 
@@ -6,37 +6,7 @@ import { Box } from 'rebass';
  * Component which dictates the visual representation of a user's interaction with elements inside of the document.
  */
 const Canvas = React.forwardRef(
-  ({ activeEl, selectableEl, children, canvasId = 'canvas' }, ref) => {
-    /**
-     * Show user which element is selectable.
-     */
-    useEffect(() => {
-      if (selectableEl) {
-        selectableEl.setAttribute('data-selectable', true);
-      }
-
-      return () => {
-        if (selectableEl) {
-          selectableEl.removeAttribute('data-selectable');
-        }
-      };
-    }, [selectableEl]);
-
-    /**
-     * Show user which element is active.
-     */
-    useEffect(() => {
-      if (activeEl) {
-        activeEl.setAttribute('data-active', true);
-      }
-
-      return () => {
-        if (activeEl) {
-          activeEl.removeAttribute('data-active');
-        }
-      };
-    }, [activeEl]);
-
+  ({ canvasId = 'canvas', children, hasActiveElement }, ref) => {
     return (
       <Box
         data-canvasid={canvasId}
@@ -48,21 +18,13 @@ const Canvas = React.forwardRef(
             ':before': {
               fontFamily: 'system-ui',
               position: 'absolute',
-              content: activeEl
+              content: hasActiveElement
                 ? '"Now, add a new element!"'
                 : '"Click me to get started!"',
               top: '50%',
               width: '100%',
               textAlign: 'center',
             },
-          },
-          '&[data-selectable]:not([data-active]),*[data-selectable]:not([data-active])': {
-            outline: '3px solid gold',
-            outlineOffset: '-3px',
-          },
-          '&[data-active],*[data-active]': {
-            outline: '3px solid darkorange',
-            outlineOffset: '-3px',
           },
         }}
       >

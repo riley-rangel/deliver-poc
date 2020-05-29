@@ -12,6 +12,7 @@ const ModalOverlay = ({ children, ...props }) => {
         bottom: 0,
         left: 0,
         bg: 'rgba(0,0,0,0.25)',
+        zIndex: 1,
       }}
       {...props}
     >

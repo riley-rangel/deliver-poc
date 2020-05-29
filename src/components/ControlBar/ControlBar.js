@@ -6,6 +6,7 @@ import { Box } from 'rebass';
  *  orientation: 'vertical' | 'horizontal';
  *  sideX: 'left' | 'right';
  *  sideY: 'top' | 'bottom';
+ *  stackOrder: number;
  * }} ControlBarProps
  */
 
@@ -14,7 +15,13 @@ import { Box } from 'rebass';
  *
  * @type {React.FC<ControlBarProps>}
  * */
-const ControlBar = ({ children, orientation, sideX, sideY }) => {
+const ControlBar = ({
+  children,
+  orientation,
+  sideX,
+  sideY,
+  stackOrder = 1,
+}) => {
   return (
     <Box
       display="flex"
@@ -27,6 +34,7 @@ const ControlBar = ({ children, orientation, sideX, sideY }) => {
         border: '2px solid black',
         boxShadow: '4px 4px rgba(0,0,0,0.5)',
         bg: 'white',
+        zIndex: stackOrder,
       }}
     >
       {children}

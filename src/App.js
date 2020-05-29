@@ -4,6 +4,10 @@ import { Text, Box } from 'rebass';
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
 import { ControlBar, Space } from './components/ControlBar';
+import {
+  ActiveIndicator,
+  SelectableIndicator,
+} from './components/ElementIndicators';
 import { useModal } from './components/Modal';
 
 import * as elements from './elements';
@@ -14,7 +18,38 @@ function App() {
   const canvasRef = useRef();
   const [activeEl, setActiveEl] = useState();
   const [selectableEl, setSelectableEl] = useState();
+  const [activeKey, setActiveKey] = useState(0);
   const [modalActions, Modal] = useModal();
+
+  /**
+   * Identify selectable element.
+   */
+  useEffect(() => {
+    if (selectableEl) {
+      selectableEl.setAttribute('data-selectable', true);
+    }
+
+    return () => {
+      if (selectableEl) {
+        selectableEl.removeAttribute('data-selectable');
+      }
+    };
+  }, [selectableEl]);
+
+  /**
+   * Identify active element.
+   */
+  useEffect(() => {
+    if (activeEl) {
+      activeEl.setAttribute('data-active', true);
+    }
+
+    return () => {
+      if (activeEl) {
+        activeEl.removeAttribute('data-active');
+      }
+    };
+  }, [activeEl]);
 
   /**
    * Update active element on click.
@@ -84,7 +119,6 @@ function App() {
       canvas.innerHTML = content;
 
       // Sync active element state with re-hydrated canvas
-      // Not a fan of having this up here - need to re-evaluate
       const savedActiveEl = canvas.querySelector('[data-active]');
       if (savedActiveEl) {
         setActiveEl(savedActiveEl);
@@ -105,6 +139,23 @@ function App() {
       observer.disconnect();
     };
   }, []);
+
+  /**
+   * Force active element indicator to re-render using react key change on attr update.
+   */
+  useEffect(() => {
+    if (activeEl) {
+      const observer = new MutationObserver(() => {
+        activeKey === 0 ? setActiveKey(1) : setActiveKey(0);
+      });
+
+      observer.observe(activeEl, { attributes: true });
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [activeKey, activeEl]);
 
   const addNewElement = useCallback(
     (element) => {
@@ -145,8 +196,7 @@ function App() {
       <Canvas
         ref={canvasRef}
         canvasId="canvas-one"
-        activeEl={activeEl}
-        selectableEl={selectableEl}
+        hasActiveElement={Boolean(activeEl)}
       />
 
       {Boolean(activeEl) && (
@@ -186,6 +236,20 @@ function App() {
           </Box>
         </Box>
       </Modal>
+
+      {selectableEl && (
+        <SelectableIndicator
+          clientRect={selectableEl.getBoundingClientRect()}
+        />
+      )}
+
+      {activeEl && (
+        <ActiveIndicator
+          key={`element-key-${activeKey}`}
+          clientRect={activeEl.getBoundingClientRect()}
+          computedStyles={getComputedStyle(activeEl)}
+        />
+      )}
     </>
   );
 }
