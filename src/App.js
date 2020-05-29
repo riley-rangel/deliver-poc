@@ -4,6 +4,7 @@ import { Text, Box } from 'rebass';
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
 import { ControlBar, Space } from './components/ControlBar';
+import { ActiveIndicator } from './components/ElementIndicators';
 import { useModal } from './components/Modal';
 
 import * as elements from './elements';
@@ -18,22 +19,6 @@ function App() {
   const [modalActions, Modal] = useModal();
 
   const selectableClient = selectableEl && selectableEl.getBoundingClientRect();
-  const activeClient = activeEl && activeEl.getBoundingClientRect();
-  const activeStyles = activeEl && window.getComputedStyle(activeEl);
-  const overlayDim = {
-    mt: activeStyles && activeStyles.getPropertyValue('margin-top'),
-    mr: activeStyles && activeStyles.getPropertyValue('margin-right'),
-    mb: activeStyles && activeStyles.getPropertyValue('margin-bottom'),
-    ml: activeStyles && activeStyles.getPropertyValue('margin-left'),
-    bt: activeStyles && activeStyles.getPropertyValue('border-top-width'),
-    br: activeStyles && activeStyles.getPropertyValue('border-right-width'),
-    bb: activeStyles && activeStyles.getPropertyValue('border-bottom-width'),
-    bl: activeStyles && activeStyles.getPropertyValue('border-left-width'),
-    pt: activeStyles && activeStyles.getPropertyValue('padding-top'),
-    pr: activeStyles && activeStyles.getPropertyValue('padding-right'),
-    pb: activeStyles && activeStyles.getPropertyValue('padding-bottom'),
-    pl: activeStyles && activeStyles.getPropertyValue('padding-left'),
-  };
 
   /**
    * Identify selectable element.
@@ -266,54 +251,11 @@ function App() {
       )}
 
       {activeEl && (
-        <Box
+        <ActiveIndicator
           key={`element-key-${activeKey}`}
-          sx={{
-            position: 'absolute',
-            top: `calc(${activeClient.top + window.scrollY}px - ${
-              overlayDim.mt
-            })`,
-            left: `calc(${activeClient.left + window.scrollX}px - ${
-              overlayDim.ml
-            })`,
-            height: `calc(${activeClient.height}px + ${overlayDim.mt} + ${overlayDim.mb})`,
-            width: `calc(${activeClient.width}px + ${overlayDim.ml} + ${overlayDim.mr})`,
-            borderTopWidth: overlayDim.mt,
-            borderRightWidth: overlayDim.mr,
-            borderBottomWidth: overlayDim.mb,
-            borderLeftWidth: overlayDim.ml,
-            borderStyle: 'solid',
-            borderColor: 'orange',
-            pointerEvents: 'none',
-            opacity: 0.3,
-          }}
-        >
-          <Box
-            height="100%"
-            sx={{
-              borderTopWidth: overlayDim.bt,
-              borderRightWidth: overlayDim.br,
-              borderBottomWidth: overlayDim.bb,
-              borderLeftWidth: overlayDim.bl,
-              borderStyle: 'solid',
-              borderColor: 'yellow',
-            }}
-          >
-            <Box
-              height="100%"
-              sx={{
-                borderTopWidth: overlayDim.pt,
-                borderRightWidth: overlayDim.pr,
-                borderBottomWidth: overlayDim.pb,
-                borderLeftWidth: overlayDim.pl,
-                borderStyle: 'solid',
-                borderColor: 'green',
-              }}
-            >
-              <Box height="100%" bg="dodgerblue" />
-            </Box>
-          </Box>
-        </Box>
+          clientRect={activeEl.getBoundingClientRect()}
+          computedStyles={getComputedStyle(activeEl)}
+        />
       )}
     </>
   );
