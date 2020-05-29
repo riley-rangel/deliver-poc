@@ -140,6 +140,9 @@ function App() {
     };
   }, []);
 
+  /**
+   * Force active element indicator to re-render using react key change on attr update.
+   */
   useEffect(() => {
     if (activeEl) {
       const observer = new MutationObserver(() => {
