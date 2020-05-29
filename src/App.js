@@ -36,6 +36,36 @@ function App() {
   };
 
   /**
+   * Identify selectable element.
+   */
+  useEffect(() => {
+    if (selectableEl) {
+      selectableEl.setAttribute('data-selectable', true);
+    }
+
+    return () => {
+      if (selectableEl) {
+        selectableEl.removeAttribute('data-selectable');
+      }
+    };
+  }, [selectableEl]);
+
+  /**
+   * Identify active element.
+   */
+  useEffect(() => {
+    if (activeEl) {
+      activeEl.setAttribute('data-active', true);
+    }
+
+    return () => {
+      if (activeEl) {
+        activeEl.removeAttribute('data-active');
+      }
+    };
+  }, [activeEl]);
+
+  /**
    * Update active element on click.
    */
   useEffect(() => {
@@ -103,7 +133,6 @@ function App() {
       canvas.innerHTML = content;
 
       // Sync active element state with re-hydrated canvas
-      // Not a fan of having this up here - need to re-evaluate
       const savedActiveEl = canvas.querySelector('[data-active]');
       if (savedActiveEl) {
         setActiveEl(savedActiveEl);
@@ -178,8 +207,7 @@ function App() {
       <Canvas
         ref={canvasRef}
         canvasId="canvas-one"
-        activeEl={activeEl}
-        selectableEl={selectableEl}
+        hasActiveElement={Boolean(activeEl)}
       />
 
       {Boolean(activeEl) && (
