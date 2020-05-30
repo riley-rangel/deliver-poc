@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'rebass';
+import { Button as RebassButton } from 'rebass';
 
 /**
  * @typedef {{
@@ -8,9 +8,9 @@ import { Button } from 'rebass';
  *
  * @type {React.FC<import('rebass').ButtonProps & ButtonProps>}
  */
-const Control = ({ children, fullWidth = false, sx, ...props }) => {
+const Button = ({ children, fullWidth = false, sx, ...props }) => {
   return (
-    <Button
+    <RebassButton
       display="flex"
       color="black"
       alignItems="center"
@@ -35,8 +35,8 @@ const Control = ({ children, fullWidth = false, sx, ...props }) => {
       {...props}
     >
       {children}
-    </Button>
+    </RebassButton>
   );
 };
 
-export default Control;
+export default Button;
