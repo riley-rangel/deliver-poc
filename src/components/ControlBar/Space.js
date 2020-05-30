@@ -316,32 +316,32 @@ const Space = ({ onChange }) => {
       </Box>
 
       {/* TODO: This part of the UI needs some love... */}
-      <Box display="flex">
-        <Box margin="auto">
-          <Button
-            fullWidth
-            onClick={() => {
-              dispatch({ type: 'subtract' });
-            }}
-          >
-            -
-          </Button>
-          <input
-            type="text"
-            onChange={({ target }) => {
-              dispatch({ type: 'input', amount: target.value });
-            }}
-            value={state.amount}
-          />
-          <Button
-            fullWidth
-            onClick={() => {
-              dispatch({ type: 'add' });
-            }}
-          >
-            +
-          </Button>
-        </Box>
+      <Box display="flex" sx={{ flexDirection: 'column' }}>
+        <Button
+          fullWidth
+          onClick={() => {
+            dispatch({ type: 'subtract' });
+          }}
+          sx={{ flex: 1 }}
+        >
+          -
+        </Button>
+        <input
+          type="text"
+          onChange={({ target }) => {
+            dispatch({ type: 'input', amount: target.value });
+          }}
+          value={state.amount}
+        />
+        <Button
+          fullWidth
+          onClick={() => {
+            dispatch({ type: 'add' });
+          }}
+          sx={{ flex: 1 }}
+        >
+          +
+        </Button>
       </Box>
     </Box>
   );

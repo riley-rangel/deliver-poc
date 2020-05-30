@@ -4,7 +4,7 @@ import { Button } from 'rebass';
 /**
  * @typedef {{
  *  fullWidth?: boolean;
- * }} ç
+ * }} ButtonProps
  *
  * @type {React.FC<import('rebass').ButtonProps & ButtonProps>}
  */
