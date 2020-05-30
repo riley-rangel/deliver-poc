@@ -38,11 +38,11 @@ const Collapse = ({
             whiteSpace: 'nowrap',
           }}
         >
-          {`${label} ${isOpen ? openIcon : closedIcon}`}
+          {label} {isOpen ? openIcon : closedIcon}
         </Text>
       </Button>
 
-      {isOpen && children}
+      <Box display={isOpen ? 'contents' : 'none'}>{children}</Box>
     </Box>
   );
 };
