@@ -13,6 +13,7 @@ import { useModal } from './components/Modal';
 import * as elements from './elements';
 
 import './App.css';
+import Collapse from './components/Collapse/Collapse';
 
 function App() {
   const canvasRef = useRef();
@@ -214,11 +215,13 @@ function App() {
 
       {Boolean(activeEl) && !activeEl.getAttribute('data-canvasid') && (
         <ControlBar orientation="vertical" sideX="right" sideY="top">
-          <Space
-            onChange={({ properties, value }) => {
-              updateStyles(properties, value);
-            }}
-          />
+          <Collapse label="Space" orientation="vertical">
+            <Space
+              onChange={({ properties, value }) => {
+                updateStyles(properties, value);
+              }}
+            />
+          </Collapse>
         </ControlBar>
       )}
 
