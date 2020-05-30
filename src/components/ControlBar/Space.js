@@ -1,5 +1,7 @@
 import React, { useReducer, useRef, useEffect } from 'react';
-import { Box, Button } from 'rebass';
+import { Box } from 'rebass';
+
+import { Button } from '../Button';
 
 const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   const color = {
@@ -317,7 +319,7 @@ const Space = ({ onChange }) => {
       <Box display="flex">
         <Box margin="auto">
           <Button
-            color="black"
+            fullWidth
             onClick={() => {
               dispatch({ type: 'subtract' });
             }}
@@ -332,7 +334,7 @@ const Space = ({ onChange }) => {
             value={state.amount}
           />
           <Button
-            color="black"
+            fullWidth
             onClick={() => {
               dispatch({ type: 'add' });
             }}

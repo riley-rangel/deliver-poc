@@ -2,9 +2,13 @@ import React from 'react';
 import { Button } from 'rebass';
 
 /**
- * @type {React.FC<import('rebass').ButtonProps>}
+ * @typedef {{
+ *  fullWidth?: boolean;
+ * }} ç
+ *
+ * @type {React.FC<import('rebass').ButtonProps & ButtonProps>}
  */
-const Control = ({ children, sx, ...props }) => {
+const Control = ({ children, fullWidth = false, sx, ...props }) => {
   return (
     <Button
       display="flex"
@@ -12,6 +16,7 @@ const Control = ({ children, sx, ...props }) => {
       alignItems="center"
       justifyContent="center"
       p="1rem"
+      width={fullWidth ? '100%' : 'auto'}
       sx={{
         cursor: 'pointer',
         borderRadius: 0,
