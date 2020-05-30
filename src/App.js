@@ -190,7 +190,12 @@ function App() {
 
   return (
     <>
-      <Text sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+      <Text
+        bg="black"
+        p={1}
+        color="white"
+        sx={{ position: 'fixed', bottom: 0, right: 0 }}
+      >
         {process.env.REACT_APP_VERSION}
       </Text>
 
