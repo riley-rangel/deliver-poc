@@ -30,7 +30,7 @@ const Collapse = ({
 
   return (
     <Box display="flex" sx={{ flexDirection: isVertical ? 'column' : 'row' }}>
-      <Button flex="1" aria-expanded={isOpen} onClick={toggle} width="100%">
+      <Button flex="1" aria-expanded={isOpen} onClick={toggle}>
         <Text
           sx={{
             writingMode: isVertical ? 'horizontal-tb' : 'vertical-lr',
