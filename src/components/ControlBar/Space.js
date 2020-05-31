@@ -340,6 +340,7 @@ const Space = ({ onChange }) => {
         </Button>
 
         <Input
+          id="spacing"
           label="Spacing"
           onChange={({ target }) => {
             dispatch({ type: 'input', amount: target.value });
