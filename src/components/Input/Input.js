@@ -6,6 +6,8 @@ import { Box } from 'rebass';
  * Stylized `input` element.
  *
  * @typedef {{
+ *  id: string;
+ *  name?: string;
  *  label: React.ReactNode;
  *  hideLabel?: boolean;
  *  tooltip?: string;
@@ -14,6 +16,8 @@ import { Box } from 'rebass';
  * @type {React.FC<React.InputHTMLAttributes>}
  */
 const Input = ({
+  id,
+  name = id,
   hideLabel = false,
   label,
   tooltip = label,
@@ -23,6 +27,7 @@ const Input = ({
   return (
     <Box sx={{ position: 'relative', fontFamily: 'system-ui' }}>
       <Label
+        htmlFor={id}
         title={tooltip}
         sx={{
           position: 'absolute',
@@ -52,7 +57,9 @@ const Input = ({
       </Label>
 
       <RebassInput
+        id={id}
         height="100%"
+        name={name}
         type={type}
         sx={{
           pt: '20px',
