@@ -337,8 +337,11 @@ const Space = ({ onChange }) => {
           -
         </Button>
 
+        {/* should break this out into numeric input component at some point */}
         <Input
           id="spacing"
+          inputMode="numeric"
+          pattern="[0-9]*"
           label="Spacing"
           onChange={({ target }) => {
             dispatch({ type: 'input', amount: target.value });
