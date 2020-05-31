@@ -226,7 +226,7 @@ function App() {
           width="200px"
         >
           <Box m="-2px">
-            <Collapse label="Space" orientation="vertical">
+            <Collapse label="Dimensions" orientation="vertical">
               <Space
                 onChange={({ properties, value }) => {
                   updateStyles(properties, value);
