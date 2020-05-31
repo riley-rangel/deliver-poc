@@ -190,7 +190,12 @@ function App() {
 
   return (
     <>
-      <Text sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+      <Text
+        bg="black"
+        p={1}
+        color="white"
+        sx={{ position: 'fixed', bottom: 0, right: 0 }}
+      >
         {process.env.REACT_APP_VERSION}
       </Text>
 
@@ -214,14 +219,21 @@ function App() {
       )}
 
       {Boolean(activeEl) && !activeEl.getAttribute('data-canvasid') && (
-        <ControlBar orientation="vertical" sideX="right" sideY="top">
-          <Collapse label="Space" orientation="vertical">
-            <Space
-              onChange={({ properties, value }) => {
-                updateStyles(properties, value);
-              }}
-            />
-          </Collapse>
+        <ControlBar
+          orientation="vertical"
+          sideX="right"
+          sideY="top"
+          width="200px"
+        >
+          <Box m="-1px">
+            <Collapse label="Space" orientation="vertical">
+              <Space
+                onChange={({ properties, value }) => {
+                  updateStyles(properties, value);
+                }}
+              />
+            </Collapse>
+          </Box>
         </ControlBar>
       )}
 
@@ -230,10 +242,7 @@ function App() {
           <Text mb="1rem">What would you like to add to the page?</Text>
 
           <Box display="grid" sx={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Button
-              onClick={() => addNewElement(elements.layout)}
-              sx={{ border: '2px solid black' }}
-            >
+            <Button bordered onClick={() => addNewElement(elements.layout)}>
               Layout
             </Button>
           </Box>

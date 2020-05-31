@@ -1,19 +1,33 @@
 import React from 'react';
-import { Button } from 'rebass';
+import { Button as RebassButton } from 'rebass';
 
 /**
- * @type {React.FC<import('rebass').ButtonProps>}
+ * @typedef {{
+ *  bordered?: boolean;
+ *  fullWidth?: boolean;
+ * }} ButtonProps
+ *
+ * @type {React.FC<import('rebass').ButtonProps & ButtonProps>}
  */
-const Control = ({ children, sx, ...props }) => {
+const Button = ({
+  bordered = false,
+  children,
+  fullWidth = false,
+  sx = {},
+  ...props
+}) => {
   return (
-    <Button
+    <RebassButton
       display="flex"
       color="black"
       alignItems="center"
       justifyContent="center"
       p="1rem"
+      width={fullWidth ? '100%' : 'auto'}
+      bg="white"
       sx={{
         cursor: 'pointer',
+        border: bordered ? '1px solid black' : 'none',
         borderRadius: 0,
         ':hover:not(:disabled)': {
           bg: 'black',
@@ -30,8 +44,8 @@ const Control = ({ children, sx, ...props }) => {
       {...props}
     >
       {children}
-    </Button>
+    </RebassButton>
   );
 };
 
-export default Control;
+export default Button;

@@ -21,11 +21,13 @@ const ControlBar = ({
   sideX,
   sideY,
   stackOrder = 1,
+  width,
 }) => {
   return (
     <Box
       display="flex"
       m={2}
+      width={width}
       sx={{
         flexDirection: orientation === 'vertical' ? 'column' : 'row',
         position: 'fixed',

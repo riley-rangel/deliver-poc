@@ -3,7 +3,7 @@ import { Box } from 'rebass';
 
 const SelectableIndicator = ({
   clientRect,
-  color = 'green',
+  color = 'dodgerblue',
   width = '2px',
   style = 'dashed',
 }) => {
