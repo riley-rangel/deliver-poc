@@ -25,8 +25,7 @@ const Collapse = ({
     setIsOpen(!isOpen);
   }, [isOpen]);
   const isVertical = orientation === 'vertical';
-  const openIcon = isVertical ? '▲' : '▶';
-  const closedIcon = isVertical ? '▼' : '◀';
+  const toggleIcon = isVertical ? '▲' : '▶';
 
   return (
     <Box display="flex" sx={{ flexDirection: isVertical ? 'column' : 'row' }}>
@@ -47,7 +46,15 @@ const Collapse = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <div>{label}</div> <div>{isOpen ? openIcon : closedIcon}</div>
+          <div>{label}</div>{' '}
+          <Box
+            sx={{
+              transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
+              transition: 'transform 300ms',
+            }}
+          >
+            {toggleIcon}
+          </Box>
         </Text>
       </Button>
 
