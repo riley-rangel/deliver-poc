@@ -3,6 +3,7 @@ import { Text, Box } from 'rebass';
 
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
+import { Collapse } from './components/Collapse';
 import { ControlBar, Space } from './components/ControlBar';
 import {
   ActiveIndicator,
@@ -13,7 +14,6 @@ import { useModal } from './components/Modal';
 import * as elements from './elements';
 
 import './App.css';
-import Collapse from './components/Collapse/Collapse';
 
 function App() {
   const canvasRef = useRef();
@@ -225,7 +225,7 @@ function App() {
           sideY="top"
           width="200px"
         >
-          <Box m="-1px">
+          <Box m="-2px">
             <Collapse label="Space" orientation="vertical">
               <Space
                 onChange={({ properties, value }) => {

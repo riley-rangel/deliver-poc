@@ -144,7 +144,6 @@ const Space = ({ onChange }) => {
               display: 'grid',
               gridTemplateColumns: 'repeat(7, 1fr)',
               gridTemplateRows: 'repeat(7, 1fr)',
-              border: '1px solid black',
             }}
           >
             <SpaceCheckbox
@@ -325,7 +324,7 @@ const Space = ({ onChange }) => {
         </Box>
       </Box>
 
-      <Box display="flex" sx={{ border: '1px solid black' }}>
+      <Box display="flex">
         <Button
           fullWidth
           minWidth="40px"

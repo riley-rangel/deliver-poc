@@ -27,7 +27,7 @@ const Button = ({
       bg="white"
       sx={{
         cursor: 'pointer',
-        border: bordered ? '1px solid black' : 'none',
+        border: bordered ? '2px solid black' : 'none',
         borderRadius: 0,
         ':hover:not(:disabled)': {
           bg: 'black',
