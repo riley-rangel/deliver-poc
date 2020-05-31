@@ -30,15 +30,24 @@ const Collapse = ({
 
   return (
     <Box display="flex" sx={{ flexDirection: isVertical ? 'column' : 'row' }}>
-      <Button flex="1" aria-expanded={isOpen} onClick={toggle}>
+      <Button
+        bordered
+        flex="1"
+        justifyContent="flex-start"
+        aria-expanded={isOpen}
+        onClick={toggle}
+      >
         <Text
+          display="flex"
+          justifyContent={isVertical ? 'space-between' : 'normal'}
+          width={isVertical ? '100%' : 'auto'}
           sx={{
             writingMode: isVertical ? 'horizontal-tb' : 'vertical-lr',
             textOrientation: 'upright',
             whiteSpace: 'nowrap',
           }}
         >
-          {label} {isOpen ? openIcon : closedIcon}
+          <div>{label}</div> <div>{isOpen ? openIcon : closedIcon}</div>
         </Text>
       </Button>
 
