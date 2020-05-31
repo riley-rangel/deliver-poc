@@ -3,12 +3,19 @@ import { Button as RebassButton } from 'rebass';
 
 /**
  * @typedef {{
+ *  bordered?: boolean;
  *  fullWidth?: boolean;
  * }} ButtonProps
  *
  * @type {React.FC<import('rebass').ButtonProps & ButtonProps>}
  */
-const Button = ({ children, fullWidth = false, sx, ...props }) => {
+const Button = ({
+  bordered = false,
+  children,
+  fullWidth = false,
+  sx = {},
+  ...props
+}) => {
   return (
     <RebassButton
       display="flex"
@@ -17,8 +24,10 @@ const Button = ({ children, fullWidth = false, sx, ...props }) => {
       justifyContent="center"
       p="1rem"
       width={fullWidth ? '100%' : 'auto'}
+      bg="white"
       sx={{
         cursor: 'pointer',
+        border: bordered ? '1px solid black' : 'none',
         borderRadius: 0,
         ':hover:not(:disabled)': {
           bg: 'black',
