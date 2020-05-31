@@ -1,6 +1,6 @@
 {
   "name": "deliver-poc",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": true,
   "dependencies": {
     "@rebass/forms": "^4.0.6",
