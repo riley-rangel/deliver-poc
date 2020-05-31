@@ -139,8 +139,6 @@ const Space = ({ onChange }) => {
             display: 'grid',
             gridTemplateColumns: 'repeat(7, 1fr)',
             gridTemplateRows: 'repeat(7, 1fr)',
-            gridGap: '1px',
-            bg: 'black',
             border: '1px solid black',
             // aspect-ratio styles
             position: 'absolute',
