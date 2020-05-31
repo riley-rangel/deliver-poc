@@ -133,195 +133,195 @@ const Space = ({ onChange }) => {
 
   return (
     <Box display="flex" width="100%" sx={{ flexDirection: 'column' }}>
+      {/* aspect-ratio styles */}
       <Box sx={{ position: 'relative', width: '100%', pt: '100%' }}>
         <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(7, 1fr)',
-            gridTemplateRows: 'repeat(7, 1fr)',
-            border: '1px solid black',
-            // aspect-ratio styles
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-          }}
+          sx={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}
         >
-          <SpaceCheckbox
-            checked={state.properties['margin-top']}
-            label="Margin Top"
-            name="marginTop"
-            data-canvas-css-prop="margin-top"
-            onChange={handleChecked}
-            type="margin"
+          <Box
             sx={{
-              gridColumn: '1 / 8',
-              gridRow: '1',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['margin-right']}
-            label="Margin Right"
-            name="marginRight"
-            data-canvas-css-prop="margin-right"
-            onChange={handleChecked}
-            type="margin"
-            sx={{
-              gridColumn: '7',
-              gridRow: '2 / 7',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['margin-bottom']}
-            label="Margin Bottom"
-            name="marginBottom"
-            data-canvas-css-prop="margin-bottom"
-            onChange={handleChecked}
-            type="margin"
-            sx={{
-              gridColumn: '1 / 8',
-              gridRow: '7',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['margin-left']}
-            label="Margin Left"
-            name="marginLeft"
-            data-canvas-css-prop="margin-left"
-            onChange={handleChecked}
-            type="margin"
-            sx={{
-              bg: 'white',
-              gridColumn: '1',
-              gridRow: '2 / 7',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['border-top']}
-            label="Border Top"
-            name="borderTop"
-            data-canvas-css-prop="border-top"
-            onChange={handleChecked}
-            type="border"
-            sx={{
-              gridColumn: '2 / 7',
-              gridRow: '2',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['border-right']}
-            label="Border Right"
-            name="borderRight"
-            data-canvas-css-prop="border-right"
-            onChange={handleChecked}
-            type="border"
-            sx={{
-              gridColumn: '6',
-              gridRow: '3 / 6',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['border-bottom']}
-            label="Border Bottom"
-            name="borderBottom"
-            data-canvas-css-prop="border-bottom"
-            onChange={handleChecked}
-            type="border"
-            sx={{
-              gridColumn: '2 / 7',
-              gridRow: '6',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['border-left']}
-            label="Border Left"
-            name="borderLeft"
-            data-canvas-css-prop="border-left"
-            onChange={handleChecked}
-            type="border"
-            sx={{
-              gridColumn: '2',
-              gridRow: '3 / 6',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['padding-top']}
-            label="Padding Top"
-            name="paddingTop"
-            data-canvas-css-prop="padding-top"
-            onChange={handleChecked}
-            type="padding"
-            sx={{
-              gridColumn: '3 / 6',
-              gridRow: '3',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['padding-right']}
-            label="Padding Right"
-            name="paddingRight"
-            data-canvas-css-prop="padding-right"
-            onChange={handleChecked}
-            type="padding"
-            sx={{
-              gridColumn: '5',
-              gridRow: '4',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['padding-bottom']}
-            label="Padding Bottom"
-            name="paddingBottom"
-            data-canvas-css-prop="padding-bottom"
-            onChange={handleChecked}
-            type="padding"
-            sx={{
-              gridColumn: '3 / 6',
-              gridRow: '5',
-              bg: 'white',
-            }}
-          />
-          <SpaceCheckbox
-            checked={state.properties['padding-left']}
-            label="Padding Left"
-            name="paddingLeft"
-            data-canvas-css-prop="padding-left"
-            onChange={handleChecked}
-            type="padding"
-            sx={{
-              gridColumn: '3',
-              gridRow: '4',
-              bg: 'white',
-            }}
-          />
-
-          <Button
-            onClick={() => dispatch({ type: 'reset' })}
-            p={0}
-            sx={{
-              gridColumn: '4',
-              gridRow: '4',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontFamily: 'system-ui',
-              borderRadius: 0,
-              bg: 'lightgray',
-              color: 'black',
+              height: '100%',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              gridTemplateRows: 'repeat(7, 1fr)',
+              border: '1px solid black',
             }}
           >
-            X
-          </Button>
+            <SpaceCheckbox
+              checked={state.properties['margin-top']}
+              label="Margin Top"
+              name="marginTop"
+              data-canvas-css-prop="margin-top"
+              onChange={handleChecked}
+              type="margin"
+              sx={{
+                gridColumn: '1 / 8',
+                gridRow: '1',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['margin-right']}
+              label="Margin Right"
+              name="marginRight"
+              data-canvas-css-prop="margin-right"
+              onChange={handleChecked}
+              type="margin"
+              sx={{
+                gridColumn: '7',
+                gridRow: '2 / 7',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['margin-bottom']}
+              label="Margin Bottom"
+              name="marginBottom"
+              data-canvas-css-prop="margin-bottom"
+              onChange={handleChecked}
+              type="margin"
+              sx={{
+                gridColumn: '1 / 8',
+                gridRow: '7',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['margin-left']}
+              label="Margin Left"
+              name="marginLeft"
+              data-canvas-css-prop="margin-left"
+              onChange={handleChecked}
+              type="margin"
+              sx={{
+                bg: 'white',
+                gridColumn: '1',
+                gridRow: '2 / 7',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['border-top']}
+              label="Border Top"
+              name="borderTop"
+              data-canvas-css-prop="border-top"
+              onChange={handleChecked}
+              type="border"
+              sx={{
+                gridColumn: '2 / 7',
+                gridRow: '2',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['border-right']}
+              label="Border Right"
+              name="borderRight"
+              data-canvas-css-prop="border-right"
+              onChange={handleChecked}
+              type="border"
+              sx={{
+                gridColumn: '6',
+                gridRow: '3 / 6',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['border-bottom']}
+              label="Border Bottom"
+              name="borderBottom"
+              data-canvas-css-prop="border-bottom"
+              onChange={handleChecked}
+              type="border"
+              sx={{
+                gridColumn: '2 / 7',
+                gridRow: '6',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['border-left']}
+              label="Border Left"
+              name="borderLeft"
+              data-canvas-css-prop="border-left"
+              onChange={handleChecked}
+              type="border"
+              sx={{
+                gridColumn: '2',
+                gridRow: '3 / 6',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['padding-top']}
+              label="Padding Top"
+              name="paddingTop"
+              data-canvas-css-prop="padding-top"
+              onChange={handleChecked}
+              type="padding"
+              sx={{
+                gridColumn: '3 / 6',
+                gridRow: '3',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['padding-right']}
+              label="Padding Right"
+              name="paddingRight"
+              data-canvas-css-prop="padding-right"
+              onChange={handleChecked}
+              type="padding"
+              sx={{
+                gridColumn: '5',
+                gridRow: '4',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['padding-bottom']}
+              label="Padding Bottom"
+              name="paddingBottom"
+              data-canvas-css-prop="padding-bottom"
+              onChange={handleChecked}
+              type="padding"
+              sx={{
+                gridColumn: '3 / 6',
+                gridRow: '5',
+                bg: 'white',
+              }}
+            />
+            <SpaceCheckbox
+              checked={state.properties['padding-left']}
+              label="Padding Left"
+              name="paddingLeft"
+              data-canvas-css-prop="padding-left"
+              onChange={handleChecked}
+              type="padding"
+              sx={{
+                gridColumn: '3',
+                gridRow: '4',
+                bg: 'white',
+              }}
+            />
+
+            <Button
+              onClick={() => dispatch({ type: 'reset' })}
+              p={0}
+              sx={{
+                gridColumn: '4',
+                gridRow: '4',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontFamily: 'system-ui',
+                borderRadius: 0,
+                bg: 'lightgray',
+                color: 'black',
+              }}
+            >
+              X
+            </Button>
+          </Box>
         </Box>
       </Box>
 
@@ -337,8 +337,11 @@ const Space = ({ onChange }) => {
           -
         </Button>
 
+        {/* should break this out into numeric input component at some point */}
         <Input
           id="spacing"
+          inputMode="numeric"
+          pattern="[0-9]*"
           label="Spacing"
           onChange={({ target }) => {
             dispatch({ type: 'input', amount: target.value });
