@@ -182,9 +182,9 @@ function App() {
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
 
-  const updateStyles = (properties, value) => {
-    properties.forEach((property) => {
-      activeEl.style[property] = `${value}px`;
+  const updateStyles = (element, properties) => {
+    Object.keys(properties).forEach((property) => {
+      element.style[property] = properties[property];
     });
   };
 
@@ -228,8 +228,8 @@ function App() {
           <Box m="-2px">
             <Collapse label="Dimensions" orientation="vertical">
               <Space
-                onChange={({ properties, value }) => {
-                  updateStyles(properties, value);
+                onChange={(properties) => {
+                  updateStyles(activeEl, properties);
                 }}
               />
             </Collapse>

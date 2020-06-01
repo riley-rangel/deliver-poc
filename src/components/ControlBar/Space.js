@@ -124,7 +124,12 @@ const Space = ({ onChange }) => {
         (key) => properties[key] === true
       );
       if (keys.length) {
-        onChange({ properties: keys, value: amount });
+        const styles = keys.reduce(
+          (acc, key) => ({ ...acc, [key]: `${amount}px` }),
+          {}
+        );
+
+        onChange(styles);
       }
     }
 
