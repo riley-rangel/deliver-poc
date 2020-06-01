@@ -158,13 +158,19 @@ function App() {
     }
   }, [activeKey, activeEl]);
 
-  const updateStyles = (element, properties) => {
+  /**
+   * Applies style properties to provided element.
+   */
+  const updateStyles = useCallback((element, properties) => {
     Object.keys(properties).forEach((property) => {
       const newValue = properties[property];
       element.style[property] = newValue;
     });
-  };
+  }, []);
 
+  /**
+   * Add a new child element to provided element.
+   */
   const addNewElement = useCallback(
     (element) => {
       const el = document.createElement(element.defaultType);
@@ -175,7 +181,7 @@ function App() {
       setActiveEl(el);
       modalActions.close();
     },
-    [activeEl, modalActions]
+    [activeEl, modalActions, updateStyles]
   );
 
   /**
