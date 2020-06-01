@@ -158,11 +158,19 @@ function App() {
     }
   }, [activeKey, activeEl]);
 
+  const updateStyles = (element, properties) => {
+    Object.keys(properties).forEach((property) => {
+      const newValue = properties[property];
+      element.style[property] = newValue;
+    });
+  };
+
   const addNewElement = useCallback(
     (element) => {
       const el = document.createElement(element.defaultType);
       el.appendChild(document.createTextNode(element.label));
       el.setAttribute('data-canvas-element-type', element.name);
+      updateStyles(el, element.defaultStyles);
       activeEl.appendChild(el);
       setActiveEl(el);
       modalActions.close();
@@ -181,12 +189,6 @@ function App() {
     setActiveEl(findFirstElement(nextSibling, previousSibling, parentElement));
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
-
-  const updateStyles = (element, properties) => {
-    Object.keys(properties).forEach((property) => {
-      element.style[property] = properties[property];
-    });
-  };
 
   return (
     <>

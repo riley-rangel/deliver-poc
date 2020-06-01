@@ -55,10 +55,10 @@ const initState = () => ({
     'margin-right': false,
     'margin-bottom': false,
     'margin-left': false,
-    'border-top': false,
-    'border-right': false,
-    'border-bottom': false,
-    'border-left': false,
+    'border-top-width': false,
+    'border-right-width': false,
+    'border-bottom-width': false,
+    'border-left-width': false,
     'padding-top': false,
     'padding-right': false,
     'padding-bottom': false,
@@ -204,10 +204,10 @@ const Space = ({ onChange }) => {
               }}
             />
             <SpaceCheckbox
-              checked={state.properties['border-top']}
-              label="Border Top"
-              name="borderTop"
-              data-canvas-css-prop="border-top"
+              checked={state.properties['border-top-width']}
+              label="Border Width Top"
+              name="borderTopWidth"
+              data-canvas-css-prop="border-top-width"
               onChange={handleChecked}
               type="border"
               sx={{
@@ -217,10 +217,10 @@ const Space = ({ onChange }) => {
               }}
             />
             <SpaceCheckbox
-              checked={state.properties['border-right']}
-              label="Border Right"
-              name="borderRight"
-              data-canvas-css-prop="border-right"
+              checked={state.properties['border-right-width']}
+              label="Border Width Right"
+              name="borderRightWidth"
+              data-canvas-css-prop="border-right-width"
               onChange={handleChecked}
               type="border"
               sx={{
@@ -230,10 +230,10 @@ const Space = ({ onChange }) => {
               }}
             />
             <SpaceCheckbox
-              checked={state.properties['border-bottom']}
-              label="Border Bottom"
-              name="borderBottom"
-              data-canvas-css-prop="border-bottom"
+              checked={state.properties['border-bottom-width']}
+              label="Border Width Bottom"
+              name="borderBottomWidth"
+              data-canvas-css-prop="border-bottom-width"
               onChange={handleChecked}
               type="border"
               sx={{
@@ -243,10 +243,10 @@ const Space = ({ onChange }) => {
               }}
             />
             <SpaceCheckbox
-              checked={state.properties['border-left']}
-              label="Border Left"
-              name="borderLeft"
-              data-canvas-css-prop="border-left"
+              checked={state.properties['border-left-width']}
+              label="Border Width Left"
+              name="borderLeftWidth"
+              data-canvas-css-prop="border-left-width"
               onChange={handleChecked}
               type="border"
               sx={{

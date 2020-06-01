@@ -3,7 +3,7 @@ export default {
   defaultStyles: {
     'border-width': '0px',
     'border-style': 'solid',
-    'border-color': '1px',
+    'border-color': 'black',
   },
   name: 'layout',
   label: "Layout added - let's customize!",
