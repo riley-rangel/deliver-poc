@@ -161,7 +161,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '1 / 8',
                 gridRow: '1',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -174,7 +173,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '7',
                 gridRow: '2 / 7',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -187,7 +185,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '1 / 8',
                 gridRow: '7',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -198,7 +195,6 @@ const Space = ({ onChange }) => {
               onChange={handleChecked}
               type="margin"
               sx={{
-                bg: 'white',
                 gridColumn: '1',
                 gridRow: '2 / 7',
               }}
@@ -213,7 +209,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '2 / 7',
                 gridRow: '2',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -226,7 +221,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '6',
                 gridRow: '3 / 6',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -239,7 +233,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '2 / 7',
                 gridRow: '6',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -252,7 +245,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '2',
                 gridRow: '3 / 6',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -265,7 +257,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '3 / 6',
                 gridRow: '3',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -278,7 +269,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '5',
                 gridRow: '4',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -291,7 +281,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '3 / 6',
                 gridRow: '5',
-                bg: 'white',
               }}
             />
             <SpaceCheckbox
@@ -304,7 +293,6 @@ const Space = ({ onChange }) => {
               sx={{
                 gridColumn: '3',
                 gridRow: '4',
-                bg: 'white',
               }}
             />
 
