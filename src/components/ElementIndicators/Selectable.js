@@ -19,7 +19,7 @@ const SelectableIndicator = ({
         height: `${clientRect.height}px`,
         width: `${clientRect.width}px`,
         pointerEvents: 'none',
-        opacity: 0.3,
+        opacity: 0.9,
       }}
     />
   );
