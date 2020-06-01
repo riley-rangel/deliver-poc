@@ -26,7 +26,7 @@ const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
           transition: 'background-color 300ms',
         },
         '> input[type="checkbox"]:hover + label::before': {
-          bg: `rgba(${color}, 0.5)`,
+          bg: `rgba(${color}, 0.6)`,
         },
         '> input[type="checkbox"]:checked + label::before': {
           bg: `rgba(${color}, 1)`,
