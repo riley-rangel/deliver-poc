@@ -58,7 +58,12 @@ const Collapse = ({
         </Text>
       </Button>
 
-      <Box display={isOpen ? 'contents' : 'none'}>{children}</Box>
+      <Box
+        display={isOpen ? 'block' : 'none'}
+        sx={{ border: '2px solid black', marginTop: '-2px' }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 };

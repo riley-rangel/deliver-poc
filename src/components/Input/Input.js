@@ -64,7 +64,7 @@ const Input = ({
         sx={{
           pt: '20px',
           pb: 0,
-          border: '1px solid transparent',
+          border: '2px solid transparent',
           transition: 'border 300ms',
           '&:focus': { border: '1px solid black' },
         }}

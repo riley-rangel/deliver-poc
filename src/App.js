@@ -3,6 +3,7 @@ import { Text, Box } from 'rebass';
 
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
+import { Collapse } from './components/Collapse';
 import { ControlBar, Space } from './components/ControlBar';
 import {
   ActiveIndicator,
@@ -13,7 +14,6 @@ import { useModal } from './components/Modal';
 import * as elements from './elements';
 
 import './App.css';
-import Collapse from './components/Collapse/Collapse';
 
 function App() {
   const canvasRef = useRef();
@@ -158,11 +158,19 @@ function App() {
     }
   }, [activeKey, activeEl]);
 
+  const updateStyles = (element, properties) => {
+    Object.keys(properties).forEach((property) => {
+      const newValue = properties[property];
+      element.style[property] = newValue;
+    });
+  };
+
   const addNewElement = useCallback(
     (element) => {
       const el = document.createElement(element.defaultType);
       el.appendChild(document.createTextNode(element.label));
       el.setAttribute('data-canvas-element-type', element.name);
+      updateStyles(el, element.defaultStyles);
       activeEl.appendChild(el);
       setActiveEl(el);
       modalActions.close();
@@ -181,12 +189,6 @@ function App() {
     setActiveEl(findFirstElement(nextSibling, previousSibling, parentElement));
     activeEl.parentElement.removeChild(activeEl);
   }, [activeEl]);
-
-  const updateStyles = (properties, value) => {
-    properties.forEach((property) => {
-      activeEl.style[property] = `${value}px`;
-    });
-  };
 
   return (
     <>
@@ -225,11 +227,11 @@ function App() {
           sideY="top"
           width="200px"
         >
-          <Box m="-1px">
-            <Collapse label="Space" orientation="vertical">
+          <Box m="-2px">
+            <Collapse label="Dimensions" orientation="vertical">
               <Space
-                onChange={({ properties, value }) => {
-                  updateStyles(properties, value);
+                onChange={(properties) => {
+                  updateStyles(activeEl, properties);
                 }}
               />
             </Collapse>
