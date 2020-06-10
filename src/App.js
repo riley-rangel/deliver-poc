@@ -4,7 +4,7 @@ import { Text, Box } from 'rebass';
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
 import { Collapse } from './components/Collapse';
-import { ControlBar, Space } from './components/ControlBar';
+import { ControlBar, Space, Height } from './components/ControlBar';
 import {
   ActiveIndicator,
   SelectableIndicator,
@@ -14,6 +14,7 @@ import { useModal } from './components/Modal';
 import * as elements from './elements';
 
 import './App.css';
+import Group from './components/ControlBar/Group';
 
 function App() {
   const canvasRef = useRef();
@@ -235,11 +236,17 @@ function App() {
         >
           <Box m="-2px">
             <Collapse label="Dimensions" orientation="vertical">
-              <Space
-                onChange={(properties) => {
-                  updateStyles(activeEl, properties);
-                }}
-              />
+              <Group label="Height / Width">
+                <Height />
+              </Group>
+
+              <Group label="Space">
+                <Space
+                  onChange={(properties) => {
+                    updateStyles(activeEl, properties);
+                  }}
+                />
+              </Group>
             </Collapse>
           </Box>
         </ControlBar>
