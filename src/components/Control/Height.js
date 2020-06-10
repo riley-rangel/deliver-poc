@@ -6,7 +6,7 @@ import { Input } from '../Input';
 const Height = ({ onChange }) => {
   return (
     <Box>
-      <Input id="height" label="Height" />
+      <Input id="height" label="Height" placeholder="auto" />
     </Box>
   );
 };

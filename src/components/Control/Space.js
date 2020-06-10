@@ -2,7 +2,7 @@ import React, { useReducer, useRef, useEffect } from 'react';
 import { Box } from 'rebass';
 
 import { Button } from '../Button';
-import { Input } from '../Input';
+import { NumericInput } from '../Input';
 
 const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   const color = {
@@ -92,7 +92,7 @@ function selectionReducer(state, action) {
     case 'input':
       return {
         ...state,
-        amount: Number(action.amount.replace(/\D/g, '')),
+        amount: Number(action.amount),
       };
     case 'reset':
       return initState();
@@ -329,11 +329,8 @@ const Space = ({ onChange }) => {
           -
         </Button>
 
-        {/* should break this out into numeric input component at some point */}
-        <Input
+        <NumericInput
           id="spacing"
-          inputMode="numeric"
-          pattern="[0-9]*"
           label="Spacing"
           onChange={({ target }) => {
             dispatch({ type: 'input', amount: target.value });
