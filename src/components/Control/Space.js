@@ -317,39 +317,17 @@ const Space = ({ onChange }) => {
         </Box>
       </Box>
 
-      <Box display="flex">
-        <Button
-          fullWidth
-          minWidth="40px"
-          onClick={() => {
-            dispatch({ type: 'subtract' });
-          }}
-          sx={{ flex: 1 }}
-        >
-          -
-        </Button>
-
-        <NumericInput
-          id="spacing"
-          label="Spacing"
-          onChange={({ target }) => {
-            dispatch({ type: 'input', amount: target.value });
-          }}
-          placeholder="eg. 16"
-          value={state.amount}
-        />
-
-        <Button
-          fullWidth
-          minWidth="40px"
-          onClick={() => {
-            dispatch({ type: 'add' });
-          }}
-          sx={{ flex: 1 }}
-        >
-          +
-        </Button>
-      </Box>
+      <NumericInput.WithControls
+        id="spacing"
+        label="Spacing"
+        onChange={({ target }) =>
+          dispatch({ type: 'input', amount: target.value })
+        }
+        onDecrement={() => dispatch({ type: 'subtract' })}
+        onIncrement={() => dispatch({ type: 'add' })}
+        placeholder="eg. 16"
+        value={state.amount}
+      />
     </Box>
   );
 };

@@ -62,10 +62,10 @@ const Input = ({
         name={name}
         type={type}
         sx={{
-          pt: '20px',
-          pb: 0,
+          pt: '24px',
+          pb: '4px',
           bg: 'rgb(0, 0, 0, 0.05)',
-          border: '2px solid transparent',
+          border: 'none',
           transition: 'border 300ms, background-color 300ms, color 300ms',
           '&:hover': {
             bg: 'rgb(0, 0, 0, 0.1)',
