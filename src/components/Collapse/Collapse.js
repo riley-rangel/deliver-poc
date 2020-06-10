@@ -35,6 +35,7 @@ const Collapse = ({
         justifyContent="flex-start"
         aria-expanded={isOpen}
         onClick={toggle}
+        sx={{ '&:focus': { position: 'relative' } }}
       >
         <Text
           display="flex"
