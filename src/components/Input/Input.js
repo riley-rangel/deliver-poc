@@ -11,9 +11,9 @@ import { Box } from 'rebass';
  *  label: React.ReactNode;
  *  hideLabel?: boolean;
  *  tooltip?: string;
- * }}
+ * }} InputProps
  *
- * @type {React.FC<React.InputHTMLAttributes>}
+ * @type {React.FC<React.InputHTMLAttributes & InputProps>}
  */
 const Input = ({
   id,
@@ -64,9 +64,15 @@ const Input = ({
         sx={{
           pt: '20px',
           pb: 0,
+          bg: 'rgb(0, 0, 0, 0.05)',
           border: '2px solid transparent',
-          transition: 'border 300ms',
-          '&:focus': { border: '2px solid gray' },
+          transition: 'border 300ms, background-color 300ms, color 300ms',
+          '&:hover': {
+            bg: 'rgb(0, 0, 0, 0.1)',
+          },
+          '&:focus': {
+            bg: 'white',
+          },
         }}
         {...props}
       />
