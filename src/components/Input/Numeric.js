@@ -55,15 +55,11 @@ const NumericWithControls = ({
 }) => {
   return (
     <Box display="flex">
-      <Control onClick={onDecrement} sx={{ flex: 1 }}>
-        {iconDecrement}
-      </Control>
+      <Control onClick={onDecrement}>{iconDecrement}</Control>
 
       <Numeric {...props} />
 
-      <Control onClick={onIncrement} sx={{ flex: 1 }}>
-        {iconIncrement}
-      </Control>
+      <Control onClick={onIncrement}>{iconIncrement}</Control>
     </Box>
   );
 };
