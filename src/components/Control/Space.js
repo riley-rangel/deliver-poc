@@ -4,6 +4,8 @@ import { Box } from 'rebass';
 import { Button } from '../Button';
 import { NumericInput } from '../Input';
 
+import { useCounter } from '../../hooks';
+
 const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
   const color = {
     margin: '255, 152, 0',
@@ -49,7 +51,6 @@ const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
 };
 
 const initState = () => ({
-  amount: 0,
   properties: {
     'margin-top': false,
     'margin-right': false,
@@ -79,21 +80,6 @@ function selectionReducer(state, action) {
           [action.property]: action.checked,
         },
       };
-    case 'add':
-      return {
-        ...state,
-        amount: state.amount + 1,
-      };
-    case 'subtract':
-      return {
-        ...state,
-        amount: state.amount > 0 ? state.amount - 1 : 0,
-      };
-    case 'input':
-      return {
-        ...state,
-        amount: Number(action.amount),
-      };
     case 'reset':
       return initState();
     default:
@@ -103,6 +89,7 @@ function selectionReducer(state, action) {
 
 const Space = ({ onChange }) => {
   const [state, dispatch] = useReducer(selectionReducer, initState());
+  const { count, decrement, increment, setCount } = useCounter('');
   const prevAmount = useRef(null);
 
   const handleChecked = ({ target }) => {
@@ -321,12 +308,12 @@ const Space = ({ onChange }) => {
         id="spacing"
         label="Spacing"
         onChange={({ target }) =>
-          dispatch({ type: 'input', amount: target.value })
+          setCount(target.value && Number(target.value))
         }
-        onDecrement={() => dispatch({ type: 'subtract' })}
-        onIncrement={() => dispatch({ type: 'add' })}
-        placeholder="eg. 16"
-        value={state.amount}
+        onDecrement={decrement}
+        onIncrement={increment}
+        placeholder="Amount"
+        value={count}
       />
     </Box>
   );

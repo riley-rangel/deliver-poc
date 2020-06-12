@@ -17,13 +17,13 @@ const Numeric = ({ onChange, ...props }) => {
       {...props}
       inputMode="numeric"
       pattern="[0-9]*"
-      onChange={(event) => {
+      onChange={({ target, ...event }) => {
         if (onChange) {
           onChange({
             ...event,
             target: {
-              ...event.target,
-              value: event.target.value.replace(/\D/g, ''),
+              ...target,
+              value: target.value ? target.value.replace(/\D/g, '') : '',
             },
           });
         }
