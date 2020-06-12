@@ -237,14 +237,14 @@ function App() {
           <Box m="-2px">
             <Collapse label="Dimensions" orientation="vertical">
               <Group label="Height / Width">
-                <HeightControl />
+                <HeightControl
+                  onChange={(properties) => updateStyles(activeEl, properties)}
+                />
               </Group>
 
               <Group label="Space">
                 <SpaceControl
-                  onChange={(properties) => {
-                    updateStyles(activeEl, properties);
-                  }}
+                  onChange={(properties) => updateStyles(activeEl, properties)}
                 />
               </Group>
             </Collapse>
