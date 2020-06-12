@@ -4,7 +4,8 @@ import { Text, Box } from 'rebass';
 import { Button } from './components/Button';
 import { Canvas } from './components/Canvas';
 import { Collapse } from './components/Collapse';
-import { ControlBar, Space } from './components/ControlBar';
+import { ControlBar, Group } from './components/ControlBar';
+import { HeightControl, SpaceControl } from './components/Control/index.js';
 import {
   ActiveIndicator,
   SelectableIndicator,
@@ -158,13 +159,19 @@ function App() {
     }
   }, [activeKey, activeEl]);
 
-  const updateStyles = (element, properties) => {
+  /**
+   * Applies style properties to provided element.
+   */
+  const updateStyles = useCallback((element, properties) => {
     Object.keys(properties).forEach((property) => {
       const newValue = properties[property];
       element.style[property] = newValue;
     });
-  };
+  }, []);
 
+  /**
+   * Add a new child element to provided element.
+   */
   const addNewElement = useCallback(
     (element) => {
       const el = document.createElement(element.defaultType);
@@ -175,7 +182,7 @@ function App() {
       setActiveEl(el);
       modalActions.close();
     },
-    [activeEl, modalActions]
+    [activeEl, modalActions, updateStyles]
   );
 
   /**
@@ -229,11 +236,17 @@ function App() {
         >
           <Box m="-2px">
             <Collapse label="Dimensions" orientation="vertical">
-              <Space
-                onChange={(properties) => {
-                  updateStyles(activeEl, properties);
-                }}
-              />
+              <Group label="Height / Width">
+                <HeightControl
+                  onChange={(properties) => updateStyles(activeEl, properties)}
+                />
+              </Group>
+
+              <Group label="Space">
+                <SpaceControl
+                  onChange={(properties) => updateStyles(activeEl, properties)}
+                />
+              </Group>
             </Collapse>
           </Box>
         </ControlBar>

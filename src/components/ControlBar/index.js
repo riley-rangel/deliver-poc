@@ -1,3 +1,2 @@
 export { default as ControlBar } from './ControlBar';
-
-export { default as Space } from './Space';
+export { default as Group } from './Group';
