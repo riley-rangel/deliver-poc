@@ -6,7 +6,7 @@ import { NumericInput } from '../Input';
 
 import { useCounter } from '../../hooks';
 
-const SpaceCheckbox = ({ children, label, name, sx, type, ...props }) => {
+const SpaceCheckbox = ({ label, name, sx, type, ...props }) => {
   const color = {
     margin: '255, 152, 0',
     border: '255, 235, 59',
