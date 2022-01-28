@@ -1,28 +1,29 @@
 {
-    "env": {
-        "commonjs": true,
-        "es6": true,
-        "node": true,
-        "browser": true
-    },
-    "extends": [
-        "prettier",
-        "plugin:prettier/recommended",
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "plugins": ["prettier"],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
-    "rules": {
-        "no-console": "warn",
-        "prettier/prettier": "error"
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": [
+    "prettier",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  },
+  "rules": {
+    "no-console": "warn",
+    "prettier/prettier": "error",
+    "react/prop-types": "off"
+  }
 }

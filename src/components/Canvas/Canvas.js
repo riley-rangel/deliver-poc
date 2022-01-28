@@ -34,4 +34,6 @@ const Canvas = React.forwardRef(
   }
 );
 
+Canvas.displayName = 'Canvas';
+
 export default Canvas;
